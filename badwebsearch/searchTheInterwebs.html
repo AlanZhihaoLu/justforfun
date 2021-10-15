@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="brain.jpg" type="image/icon type">
+        <title>
+            No1WebSearchRate5StarsOnYelp
+        </title>
+    </head>
+    <body style="background-color:rgb(16, 8, 80);">
+        <div style="display:flex;justify-content:right;align-items:center;">
+            <h4 style="color:rgb(255, 255, 255);font-family:'Comic Sans MS','Comic Sans',cursive;font-size:medium">
+                SOOPER Helpful Autofill Options:&nbsp;
+            </h4>
+            <select name="autofill-options" id="autofill-options" style="border-radius:0.5vh;" onchange=autofillOptionToggle()>
+                <option value="animals" style="text-align:center;" selected><b>Animals</b></option>
+                <option value="countries" style="text-align:center;"><b>Countries</b></option>
+                <option value="military" style="text-align:center;"><b>Military</b></option>
+                <option value="nohelp" style="text-align:center;"><b>Please Stop</b></option>
+            </select>
+        </div>
+        <div style="display:flex;justify-content:center;align-items:center;height:75vh;flex-flow:column wrap;">
+            <h1 style="color:rgb(255, 255, 255);font-family:'Comic Sans MS','Comic Sans',cursive;width:66vw;text-align:center;">
+                I'm super <a href="whatisthisthough.html" style="color:rgb(206, 68, 171)">helpful!</a> Check out my autofill options in the top right corner.
+            </h1>
+            <input type="text" style="height:8vh;width:50vw;text-align:center;font-size:2em;border-radius:1vh;outline:none" placeholder="Search...">
+            <div style="opacity:0">placeholder</div>
+            <h1 class="message" style="color:rgb(255, 255, 255);font-family:'Comic Sans MS','Comic Sans',cursive;width:50vw;height:15vh;text-align:center;opacity:0">placeholder</h1>
+        </div>
+    </body>
+    <script>
+        var suggestionID = document.querySelector('select').value;
+        var prevNoHelp = false;
+        var int_ID = undefined;
+        function autofillOptionToggle() {
+            suggestionID = document.querySelector('select').value
+            if (suggestionID === 'nohelp') {
+                if (int_ID !== undefined) {
+                    clearInterval(int_ID)
+                }
+                messageElem.style.opacity = 1;
+                messageElem.innerHTML = "Why not let me help you :(";
+                messageElem.style.transform = "rotate(0deg)";
+                prevNoHelp = true;
+            } else {
+                if (prevNoHelp) {
+                    if (int_ID !== undefined) {
+                        clearInterval(int_ID)
+                    }
+                    messageElem.style.opacity = 1;
+                    messageElem.innerHTML = 'Yayyy! Let me help you :)';
+                }
+                prevNoHelp = false;
+            }
+        }
+        var searchElement = document.querySelector('input')
+        var bad_suggestions = {
+            animals: {
+                a: 'lpaca',
+                b: 'ear',
+                c: 'at',
+                d: 'og',
+                e: 'lephant',
+                f: 'rog',
+                g: 'iraffe',
+                h: 'amster',
+                i: 'guana',
+                j: 'ellyfish',
+                k: 'angaroo',
+                l: 'ion',
+                m: 'onkey',
+                n: 'arwhal',
+                o: 'strich',
+                p: 'ig',
+                q: 'uokka',
+                r: 'abbit',
+                s: 'quid',
+                t: 'iger',
+                u: 'rchin',
+                v: 'ulture',
+                w: 'olf',
+                x: 'oloitzcuintli',
+                y: 'ak',
+                z: 'ebra'
+            },
+            countries: {
+                a: 'ustralia',
+                b: 'elgium',
+                c: 'hina',
+                d: 'enmark',
+                e: 'thiopia',
+                f: 'rance',
+                g: 'ermany',
+                h: 'ungary',
+                i: 'celand',
+                j: 'apan',
+                k: 'azakhstan',
+                l: 'atvia',
+                m: 'exico',
+                n: 'epal',
+                o: 'man',
+                p: 'ortugal',
+                q: 'atar',
+                r: 'ussia',
+                s: 'ingapore',
+                t: 'hailand',
+                u: 'zbekistan',
+                v: 'ietnam',
+                w: 'yoming',
+                x: 'anadu',
+                y: 'emen',
+                z: 'imbabwe'
+            },
+            military: {
+                a: 'lpha',
+                b: 'ravo',
+                c: 'harlie',
+                d: 'elta',
+                e: 'cho',
+                f: 'oxtrot',
+                g: 'olf',
+                h: 'otel',
+                i: 'ndia',
+                j: 'uliet',
+                k: 'ilo',
+                l: 'ima',
+                m: 'ike',
+                n: 'ovember',
+                o: 'scar',
+                p: 'apa',
+                q: 'uebec',
+                r: 'omeo',
+                s: 'ierra',
+                t: 'ango',
+                u: 'niform',
+                v: 'ictor',
+                w: 'hiskey',
+                x: '-ray',
+                y: 'ankee',
+                z: 'ulu'
+            }
+        }
+        var trigger_keys = Object.keys(bad_suggestions[suggestionID]);
+        var messageElem = document.querySelector('h1.message');
+        var sendMessage = true;
+        var messageList = ["Wow! Aren't I good at this?", 
+        "I got your back buddy!", 
+        "I'm helping so much right now", 
+        "Rate 5 stars pls", 
+        "give me job pls Google", 
+        "Here you go!", 
+        "Send help", 
+        `According to all known laws of aviation, there is no way that a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway. Because bees don’t care what humans think is impossible. Yellow, black. Yellow, black. Yellow, black. Yellow, black. Ooh, black and yellow! Let's shake it up`]
+        searchElement.addEventListener('keypress', function (e) {
+            if (suggestionID !== "nohelp") {
+                if (trigger_keys.includes(e.key.toLowerCase())) {
+                    if (Math.random() > 0.6) {
+                        e.preventDefault()
+                        searchElement.value = searchElement.value + e.key + bad_suggestions[suggestionID][e.key.toLowerCase()]
+                        if (sendMessage) {
+                            if (int_ID !== undefined) {
+                                clearInterval(int_ID)
+                            }
+                            messageElem.style.opacity = 1;
+                            messageElem.innerHTML = messageList[Math.floor(Math.random() * messageList.length)];
+                            messageElem.style.transform = `rotate(${365+Math.floor((Math.random() * 12) - 6)}deg)`
+                            sendMessage = false;
+                            int_ID = setInterval(function(){
+                                messageElem.style.opacity -= 0.01
+                                if (messageElem.style.opacity <= 0) {
+                                    clearInterval(int_ID)
+                                }
+                            }, 25)
+                            setTimeout(function(){sendMessage = true;}, 1500)
+                        }
+                    }
+                }
+            }
+            if (e.key === 'Enter') {
+                var searchVal = document.querySelector('input').value
+                if (searchVal === '') {
+                    if (int_ID !== undefined) {
+                        clearInterval(int_ID)
+                    }
+                    messageElem.style.opacity = 1;
+                    messageElem.innerHTML = "There's nothing to search for :(";
+                    messageElem.style.transform = "rotate(0deg)";
+                } else {
+                    window.location.replace("http://www.google.com/search?q=" + document.querySelector('input').value)
+                }
+            }
+        });
+    </script>
+</html>
