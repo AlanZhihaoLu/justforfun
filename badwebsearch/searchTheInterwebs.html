@@ -42,6 +42,7 @@
                 messageElem.style.transform = "rotate(0deg)";
                 prevNoHelp = true;
             } else {
+                trigger_keys = Object.keys(bad_suggestions[suggestionID]);
                 if (prevNoHelp) {
                     if (int_ID !== undefined) {
                         clearInterval(int_ID)
@@ -139,6 +140,7 @@
                 z: 'ulu'
             }
         }
+        var n_empty = 0;
         var trigger_keys = Object.keys(bad_suggestions[suggestionID]);
         var messageElem = document.querySelector('h1.message');
         var sendMessage = true;
@@ -176,14 +178,26 @@
                 }
             }
             if (e.key === 'Enter') {
-                var searchVal = document.querySelector('input').value
+                var searchVal = document.querySelector('input').value;
                 if (searchVal === '') {
                     if (int_ID !== undefined) {
                         clearInterval(int_ID)
                     }
                     messageElem.style.opacity = 1;
-                    messageElem.innerHTML = "There's nothing to search for :(";
+                    if (n_empty >= 3 && suggestionID !== "nohelp") {
+                        var random_search = trigger_keys[Math.floor(Math.random() * trigger_keys.length)];
+                        messageElem.innerHTML = 'Would you like to search for random words related to ' + 
+                        '<a href="http://www.google.com/search?q=' + 
+                        random_search + 
+                        bad_suggestions[suggestionID][random_search] + 
+                        '">' +
+                        suggestionID +
+                        '</a>?'
+                    } else {
+                        messageElem.innerHTML = "There's nothing to search for :(";
+                    }
                     messageElem.style.transform = "rotate(0deg)";
+                    n_empty += 1;
                 } else {
                     window.location.replace("http://www.google.com/search?q=" + document.querySelector('input').value)
                 }
