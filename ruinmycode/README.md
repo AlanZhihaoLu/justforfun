@@ -1,3 +1,3 @@
 It ruins code.
 
-Run in CLI: ruinmycode [filepath]
+Run in CLI: python ruinmycode.py [filepath]
