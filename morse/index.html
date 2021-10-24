@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <title>
+            Morse Interpreter
+        </title>
+    </head>
+    <body>
+        <span id="interpreted"></span><span id="cursor" style='position:relative;top:0.05em;font-size:1.2em;'>|</span>
+    </body>
+    <script src="cursor_blink.js"></script>
+    <script>
+        var interpreted = document.querySelector('#interpreted');
+
+        var morse_dict = {
+            '.-':'a',
+            '-...':'b',
+            '-.-.':'c',
+            '-..':'d',
+            '.':'e',
+            '..-.':'f',
+            '--.':'g',
+            '....':'h',
+            '..':'i',
+            '.---':'j',
+            '-.-':'k',
+            '.-..':'l',
+            '--':'m',
+            '-.':'n',
+            '---':'o',
+            '.--.':'p',
+            '--.-':'q',
+            '.-.':'r',
+            '...':'s',
+            '-':'t',
+            '..-':'u',
+            '...-':'v',
+            '.--':'w',
+            '-..-':'x',
+            '-.--':'y',
+            '--..':'z',
+            '.----':'1',
+            '..---':'2',
+            '...--':'3',
+            '....-':'4',
+            '.....':'5',
+            '-....':'6',
+            '--...':'7',
+            '---..':'8',
+            '----.':'9',
+            '-----':'0'
+        }
+
+        var dit = 150;
+        var word = ''
+        var timeoutID;
+
+        var ready_down = true;
+        var t0;
+        var dur;
+
+        document.body.addEventListener('keydown', function (e) {
+            if (e.keyCode === 8) {
+                if (timeoutID !== undefined) {
+                    console.log('clearing')
+                    clearTimeout(timeoutID);
+                    console.log(interpreted.innerHTML)
+                    interpreted.innerHTML = interpreted.innerHTML.slice(0, -1)
+                }
+            }
+            if (e.keyCode === 32 && ready_down) {
+                t0 = e.timeStamp;
+                console.log(word);
+                console.log('down', timeoutID, t0)
+                if (timeoutID !== undefined) {
+                    console.log('clearing')
+                    clearTimeout(timeoutID);
+                }
+                ready_down = false;
+            }
+        })
+        document.body.addEventListener('keyup', function(e) {
+            if (e.keyCode === 32 && t0 !== undefined) {
+                dur = e.timeStamp - t0;
+                if (dur < (dit*2.5)) {
+                    word = word + '.';
+                } else {
+                    word = word + '-';
+                };
+                timeoutID = setTimeout(interpret_morse,dit*3);
+                console.log('up',timeoutID,e.timeStamp)
+                ready_down = true;
+            }
+        })
+
+        function interpret_morse() {
+            if (morse_dict[word] !== undefined) {
+                interpreted.innerHTML = interpreted.innerHTML + morse_dict[word];
+                word = '';
+                timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + ' '},dit*4);
+                console.log('interpret',timeoutID)
+            }
+        }
+
+    </script>
+</html>
