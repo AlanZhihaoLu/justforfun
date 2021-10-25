@@ -69,12 +69,11 @@
                 if (timeoutID !== undefined) {
                     console.log('clearing')
                     clearTimeout(timeoutID);
-                    console.log(interpreted.innerHTML)
                     if (ditdahs.innerHTML.length !== 0) {
                         timeoutID = setTimeout(interpret_morse,dit*3);
                         ditdahs.innerHTML = ditdahs.innerHTML.slice(0, -1)
                     } else {
-                        interpreted.innerHTML = interpreted.innerHTML.slice(0, -1)
+                        interpreted.innerHTML = interpreted.innerHTML.replace(/&nbsp;/g, ' ').slice(0, -1);
                     }
                 }
             }
