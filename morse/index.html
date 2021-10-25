@@ -5,11 +5,16 @@
         </title>
     </head>
     <body>
-        <span id="interpreted"></span><span id="cursor" style='position:relative;top:0.05em;font-size:1.2em;'>|</span>
+        <div style="display:flex;justify-content:center;align-items:center;font-size:x-large;">
+            <span id="interpreted"></span>
+            <span id="ditdahs" style='opacity:0.5;'></span>
+            <span id="cursor" style='position:relative;top:0.05em;font-size:1.2em;'>|</span>
+        </div>
     </body>
     <script src="cursor_blink.js"></script>
     <script>
         var interpreted = document.querySelector('#interpreted');
+        var ditdahs = document.querySelector('#ditdahs');
 
         var morse_dict = {
             '.-':'a',
@@ -51,7 +56,7 @@
         }
 
         var dit = 150;
-        var word = ''
+        ditdahs.innerHTML = '';
         var timeoutID;
 
         var ready_down = true;
@@ -64,12 +69,17 @@
                     console.log('clearing')
                     clearTimeout(timeoutID);
                     console.log(interpreted.innerHTML)
-                    interpreted.innerHTML = interpreted.innerHTML.slice(0, -1)
+                    if (ditdahs.innerHTML.length !== 0) {
+                        timeoutID = setTimeout(interpret_morse,dit*3);
+                        ditdahs.innerHTML = ditdahs.innerHTML.slice(0, -1)
+                    } else {
+                        interpreted.innerHTML = interpreted.innerHTML.slice(0, -1)
+                    }
                 }
             }
             if (e.keyCode === 32 && ready_down) {
                 t0 = e.timeStamp;
-                console.log(word);
+                console.log(ditdahs.innerHTML);
                 console.log('down', timeoutID, t0)
                 if (timeoutID !== undefined) {
                     console.log('clearing')
@@ -82,9 +92,9 @@
             if (e.keyCode === 32 && t0 !== undefined) {
                 dur = e.timeStamp - t0;
                 if (dur < (dit*2.5)) {
-                    word = word + '.';
+                    ditdahs.innerHTML = ditdahs.innerHTML + '.';
                 } else {
-                    word = word + '-';
+                    ditdahs.innerHTML = ditdahs.innerHTML + '-';
                 };
                 timeoutID = setTimeout(interpret_morse,dit*3);
                 console.log('up',timeoutID,e.timeStamp)
@@ -93,10 +103,10 @@
         })
 
         function interpret_morse() {
-            if (morse_dict[word] !== undefined) {
-                interpreted.innerHTML = interpreted.innerHTML + morse_dict[word];
-                word = '';
-                timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + ' '},dit*4);
+            if (morse_dict[ditdahs.innerHTML] !== undefined) {
+                interpreted.innerHTML = interpreted.innerHTML + morse_dict[ditdahs.innerHTML];
+                ditdahs.innerHTML = '';
+                timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + '&nbsp;'},dit*4);
                 console.log('interpret',timeoutID)
             }
         }
