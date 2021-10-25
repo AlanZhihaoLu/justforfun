@@ -73,7 +73,7 @@
                         timeoutID = setTimeout(interpret_morse,dit*3);
                         ditdahs.innerHTML = ditdahs.innerHTML.slice(0, -1)
                     } else {
-                        interpreted.innerHTML = interpreted.innerHTML.replace(/&nbsp;/g, ' ').slice(0, -1);
+                        interpreted.innerHTML = interpreted.innerHTML.replace(/&nbsp;/g, ' ').slice(0, -1).replace(' ', /&nbsp;/g);
                     }
                 }
             }
