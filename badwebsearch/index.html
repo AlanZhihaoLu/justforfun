@@ -159,11 +159,14 @@
         "Send help", 
         `According to all known laws of aviation, there is no way that a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway. Because bees don’t care what humans think is impossible. Yellow, black. Yellow, black. Yellow, black. Yellow, black. Ooh, black and yellow! Let's shake it up`]
         searchElement.addEventListener('keypress', function (e) {
+            var cursor_pos = e.target.selectionStart
             if (suggestionID !== "nohelp") {
                 if (trigger_keys.includes(e.key.toLowerCase())) {
                     if (Math.random() > 0.6) {
                         e.preventDefault()
-                        searchElement.value = searchElement.value + e.key + bad_suggestions[suggestionID][e.key.toLowerCase()]
+                        var suggested_word = bad_suggestions[suggestionID][e.key.toLowerCase()]
+                        searchElement.value = searchElement.value.slice(0,cursor_pos) + e.key + suggested_word + searchElement.value.slice(cursor_pos)
+                        searchElement.setSelectionRange(cursor_pos+suggested_word.length+1,cursor_pos+suggested_word.length+1)
                         if (sendMessage) {
                             if (int_ID !== undefined) {
                                 clearInterval(int_ID)
@@ -184,7 +187,7 @@
                 }
             }
             if (e.key === 'Enter') {
-                var searchVal = document.querySelector('input').value;
+                var searchVal = searchElement.value;
                 if (searchVal === '') {
                     if (int_ID !== undefined) {
                         clearInterval(int_ID)
@@ -205,7 +208,7 @@
                     messageElem.style.transform = "rotate(0deg)";
                     n_empty += 1;
                 } else {
-                    window.location.assign("http://www.google.com/search?q=" + document.querySelector('input').value)
+                    window.location.assign("http://www.google.com/search?q=" + searchVal)
                 }
             }
         });
