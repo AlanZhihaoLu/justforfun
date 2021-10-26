@@ -6,10 +6,10 @@
         <style>
             body {
                 touch-action: manipulation;
-                -webkit-touch-callout: none;
+                /* -webkit-touch-callout: none;
                 -webkit-text-size-adjust: none;
                 -webkit-user-select: none;    
-                user-select: none;
+                user-select: none; */
             }
             button {
                 transition-duration: 0.4s;
@@ -186,6 +186,10 @@
                 timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + ' '},dit*4);
             }
         }
+
+        document.body.addEventListener('contextmenu', e => {
+            e.preventDefault();
+        });
 
     </script>
 </html>
