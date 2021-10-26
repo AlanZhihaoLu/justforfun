@@ -10,13 +10,33 @@
                 -ms-user-select: none; /* IE10+/Edge */
                 user-select: none; /* Standard */
             }
+            .del-button {
+                border: 1vw solid red;
+                border-radius: 1vw;
+                background-color: red;
+                color: whitesmoke;
+            }
+            .inputarea {
+                border: 1vw solid black;
+                border-radius: 1vw;
+                overflow: auto;
+                resize: both;
+            }
         </style>
     </head>
     <body>
-        <div class="unselectable" style="display:flex;justify-content:center;align-items:flex-end;height:30vh;font-size:xx-large;">
-            <span id="interpreted" style='white-space: pre-wrap;'></span>
-            <span id="ditdahs" style='opacity:0.5;'></span>
-            <span id="cursor" style='position:relative;top:0.1em;font-size:1.2em;'>|</span>
+        <div class="unselectable" style="display:flex;justify-content:center;align-items:center;height:25vh;font-size:10vh;">
+            
+        </div>
+        <div>
+            <div class="unselectable inputarea" style="display:flex;justify-content:center;align-items:center;height:20vh;font-size:10vh;">
+                <span id="interpreted" style='white-space: pre-wrap;'></span>
+                <span id="ditdahs" style='opacity:0.5;'></span>
+                <span id="cursor" style='position:relative;font-size:1.2em;'>|</span>
+            </div>
+            <div style="display:flex;justify-content:center;align-items:flex-end;height:18vh;">
+                <button class="del-button unselectable" style="font-size:10vh;">delete</button>
+            </div>
         </div>
     </body>
     <script src="cursor_blink.js"></script>
@@ -71,13 +91,29 @@
         var t0;
         var dur;
 
+        var delete_button = document.body.querySelector('.del-button');
+
+        delete_button.addEventListener('mousedown', function (e) {
+            if (timeoutID !== undefined) {
+                    clearTimeout(timeoutID);
+                    if (ditdahs.innerHTML.length !== 0) {
+                        timeoutID = setTimeout(interpret_morse,dit*3);
+                        ditdahs.innerHTML = ditdahs.innerHTML.slice(0, -1);
+                    } else {
+                        interpreted.innerHTML = interpreted.innerHTML.slice(0, -1);
+                    }
+                }
+            e.stopPropagation();
+        }, true)
+
+        delete_button.addEventListener('mouseup', function (e) {
+            e.stopPropagation();
+        }, true)
+
         document.body.addEventListener('mousedown', function (e) {
             if (ready_down) {
                 t0 = e.timeStamp;
-                console.log(ditdahs.innerHTML);
-                console.log('down', timeoutID, t0)
                 if (timeoutID !== undefined) {
-                    console.log('clearing')
                     clearTimeout(timeoutID);
                 }
                 ready_down = false;
@@ -92,7 +128,6 @@
                     ditdahs.innerHTML = ditdahs.innerHTML + '-';
                 };
                 timeoutID = setTimeout(interpret_morse,dit*3);
-                console.log('up',timeoutID,e.timeStamp)
                 ready_down = true;
             }
         })
@@ -100,7 +135,6 @@
         document.body.addEventListener('keydown', function (e) {
             if (e.keyCode === 8) {
                 if (timeoutID !== undefined) {
-                    console.log('clearing')
                     clearTimeout(timeoutID);
                     if (ditdahs.innerHTML.length !== 0) {
                         timeoutID = setTimeout(interpret_morse,dit*3);
@@ -112,10 +146,7 @@
             }
             if (e.keyCode === 32 && ready_down) {
                 t0 = e.timeStamp;
-                console.log(ditdahs.innerHTML);
-                console.log('down', timeoutID, t0)
                 if (timeoutID !== undefined) {
-                    console.log('clearing')
                     clearTimeout(timeoutID);
                 }
                 ready_down = false;
@@ -130,7 +161,6 @@
                     ditdahs.innerHTML = ditdahs.innerHTML + '-';
                 };
                 timeoutID = setTimeout(interpret_morse,dit*3);
-                console.log('up',timeoutID,e.timeStamp)
                 ready_down = true;
             }
         })
@@ -140,7 +170,6 @@
                 interpreted.innerHTML = interpreted.innerHTML + morse_dict[ditdahs.innerHTML];
                 ditdahs.innerHTML = '';
                 timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + ' '},dit*4);
-                console.log('interpret',timeoutID)
             }
         }
 
