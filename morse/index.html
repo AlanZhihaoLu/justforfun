@@ -4,6 +4,20 @@
             Morse Interpreter
         </title>
         <style>
+            body {
+                touch-action: manipulation;
+            }
+            button {
+                transition-duration: 0.4s;
+            }
+            .del-button:hover {
+                background-color: whitesmoke;
+                color: red;
+            }
+            .cal-button:hover {
+                background-color: black;
+                color: whitesmoke;
+            }
             .unselectable {
                 -webkit-user-select: none; /* Safari */        
                 -moz-user-select: none; /* Firefox */
@@ -15,6 +29,16 @@
                 border-radius: 1vw;
                 background-color: red;
                 color: whitesmoke;
+                padding: 1vw;
+                cursor: pointer;
+            }
+            .cal-button {
+                border: 0.5vw solid black;
+                border-radius: 0.5vw;
+                background-color: whitesmoke;
+                color: black;
+                padding: 0.5vw;
+                cursor: pointer;
             }
             .inputarea {
                 border: 1vw solid black;
@@ -25,21 +49,25 @@
         </style>
     </head>
     <body>
+        <button class="cal-button unselectable" style="font-size:5vh;">calibrate</button>
         <div class="unselectable" style="display:flex;justify-content:center;align-items:center;height:25vh;font-size:10vh;">
-            
+            Morse Interpreter
         </div>
         <div>
             <div class="unselectable inputarea" style="display:flex;justify-content:center;align-items:center;height:20vh;font-size:10vh;">
-                <span id="interpreted" style='white-space: pre-wrap;'></span>
-                <span id="ditdahs" style='opacity:0.5;'></span>
-                <span id="cursor" style='position:relative;font-size:1.2em;'>|</span>
+                <span>
+                    <span id="interpreted" style='white-space:pre-wrap;'></span>
+                    <span id="ditdahs" style='opacity:0.5;margin-left:-0.1em;'></span>
+                    <span id="cursor" style='position:relative;font-size:1.2em;top:0.05em;margin-left:-0.1em;'>|</span>
+                </span>
             </div>
-            <div style="display:flex;justify-content:center;align-items:flex-end;height:18vh;">
+            <div style="display:flex;justify-content:center;align-items:flex-end;height:20vh;">
                 <button class="del-button unselectable" style="font-size:10vh;">delete</button>
             </div>
         </div>
     </body>
     <script src="cursor_blink.js"></script>
+    <script src="delete_button.js"></script>
     <script>
         var interpreted = document.querySelector('#interpreted');
         var ditdahs = document.querySelector('#ditdahs');
@@ -90,25 +118,6 @@
         var ready_down = true;
         var t0;
         var dur;
-
-        var delete_button = document.body.querySelector('.del-button');
-
-        delete_button.addEventListener('mousedown', function (e) {
-            if (timeoutID !== undefined) {
-                    clearTimeout(timeoutID);
-                    if (ditdahs.innerHTML.length !== 0) {
-                        timeoutID = setTimeout(interpret_morse,dit*3);
-                        ditdahs.innerHTML = ditdahs.innerHTML.slice(0, -1);
-                    } else {
-                        interpreted.innerHTML = interpreted.innerHTML.slice(0, -1);
-                    }
-                }
-            e.stopPropagation();
-        }, true)
-
-        delete_button.addEventListener('mouseup', function (e) {
-            e.stopPropagation();
-        }, true)
 
         document.body.addEventListener('mousedown', function (e) {
             if (ready_down) {
