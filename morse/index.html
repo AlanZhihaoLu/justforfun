@@ -81,6 +81,8 @@
     <script src="calibrate_button.js"></script>
     <script src="help_button.js"></script>
     <script>
+        var audioObj = new Audio('440Hz.mp3');
+        audioObj.volume = 0.1;
         var interpreted = document.querySelector('#interpreted');
         var ditdahs = document.querySelector('#ditdahs');
 
@@ -138,6 +140,7 @@
                 if (timeoutID !== undefined) {
                     clearTimeout(timeoutID);
                 }
+                audioObj.play()
                 ready_down = false;
             }
         })
@@ -151,6 +154,8 @@
                     ditdahs.innerHTML = ditdahs.innerHTML + '-';
                 };
                 timeoutID = setTimeout(interpret_morse,dit*3);
+                audioObj.pause()
+                audioObj.currentTime = 0;
                 ready_down = true;
             }
         })
@@ -172,6 +177,7 @@
                 if (timeoutID !== undefined) {
                     clearTimeout(timeoutID);
                 }
+                audioObj.play()
                 ready_down = false;
             }
         })
@@ -184,6 +190,8 @@
                     ditdahs.innerHTML = ditdahs.innerHTML + '-';
                 };
                 timeoutID = setTimeout(interpret_morse,dit*3);
+                audioObj.pause()
+                audioObj.currentTime = 0;
                 ready_down = true;
             }
         })
@@ -205,6 +213,7 @@
                 if (timeoutID !== undefined) {
                     clearTimeout(timeoutID);
                 }
+                audioObj.play()
                 ready_down = false;
             }
         });
@@ -219,6 +228,8 @@
                     ditdahs.innerHTML = ditdahs.innerHTML + '-';
                 };
                 timeoutID = setTimeout(interpret_morse,dit*3);
+                audioObj.pause()
+                audioObj.currentTime = 0;
                 ready_down = true;
             }
         });
