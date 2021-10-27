@@ -18,7 +18,7 @@
                 background-color: whitesmoke;
                 color: red;
             }
-            .cal-button:hover {
+            button:hover {
                 background-color: black;
                 color: whitesmoke;
             }
@@ -36,7 +36,7 @@
                 padding: 1vw;
                 cursor: pointer;
             }
-            .cal-button {
+            button {
                 border: 0.5vw solid black;
                 border-radius: 0.5vw;
                 background-color: whitesmoke;
@@ -53,7 +53,13 @@
         </style>
     </head>
     <body>
-        <button class="cal-button unselectable" style="font-size:5vh;">calibrate</button>
+        <div class="unselectable" style="display:flex;justify-content:flex-end;">
+            <button class="cal-button" style="font-size:5vh;">calibrate</button>
+            <button class="help-button" style="margin-left:auto;font-size:5vh;">help</button>
+        </div>
+        <!-- <div style="display:flex;justify-content:center;">
+            <span style='padding:1vh;font-size:3vh;'>mode</span>
+        </div> -->
         <div class="unselectable" style="display:flex;justify-content:center;align-items:center;height:25vh;font-size:10vh;">
             Morse Interpreter
         </div>
@@ -73,6 +79,7 @@
     <script src="cursor_blink.js"></script>
     <script src="delete_button.js"></script>
     <script src="calibrate_button.js"></script>
+    <script src="help_button.js"></script>
     <script>
         var interpreted = document.querySelector('#interpreted');
         var ditdahs = document.querySelector('#ditdahs');
@@ -190,10 +197,6 @@
                 timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + ' '},dit*4);
             }
         }
-
-        // document.body.addEventListener('contextmenu', e => {
-        //     e.preventDefault();
-        // });
 
         document.body.addEventListener('touchstart', e => {
             e.preventDefault();
