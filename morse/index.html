@@ -185,6 +185,8 @@
             if (morse_dict[ditdahs.innerHTML] !== undefined) {
                 interpreted.innerHTML = interpreted.innerHTML + morse_dict[ditdahs.innerHTML];
                 ditdahs.innerHTML = '';
+            }
+            if (interpreted.innerHTML.length > 0) {
                 timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + ' '},dit*4);
             }
         }
