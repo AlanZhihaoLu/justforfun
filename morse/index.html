@@ -213,7 +213,6 @@
                 if (timeoutID !== undefined) {
                     clearTimeout(timeoutID);
                 }
-                audioObj.play()
                 ready_down = false;
             }
         });
@@ -228,8 +227,6 @@
                     ditdahs.innerHTML = ditdahs.innerHTML + '-';
                 };
                 timeoutID = setTimeout(interpret_morse,dit*3);
-                audioObj.pause()
-                audioObj.currentTime = 0;
                 ready_down = true;
             }
         });
