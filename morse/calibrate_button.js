@@ -7,3 +7,11 @@ cal_button.addEventListener('mousedown', function (e) {
 cal_button.addEventListener('mouseup', function (e) {
     e.stopPropagation();
 }, true)
+
+cal_button.addEventListener('touchstart', function (e) {
+    e.stopPropagation();
+}, true)
+
+cal_button.addEventListener('touchend', function (e) {
+    e.stopPropagation();
+}, true)

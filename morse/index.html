@@ -7,9 +7,9 @@
             body {
                 touch-action: manipulation;
                 -webkit-touch-callout: none;
-                -webkit-text-size-adjust: none;
-                -webkit-user-select: none;    
-                user-select: none;
+                /* -webkit-text-size-adjust: none; */
+                /* -webkit-user-select: none;    
+                user-select: none; */
             }
             button {
                 transition-duration: 0.4s;
@@ -189,8 +189,33 @@
             }
         }
 
-        document.body.addEventListener('contextmenu', e => {
+        // document.body.addEventListener('contextmenu', e => {
+        //     e.preventDefault();
+        // });
+
+        document.body.addEventListener('touchstart', e => {
             e.preventDefault();
+            if (ready_down) {
+                t0 = e.timeStamp;
+                if (timeoutID !== undefined) {
+                    clearTimeout(timeoutID);
+                }
+                ready_down = false;
+            }
+        });
+
+        document.body.addEventListener('touchend', e => {
+            e.preventDefault();
+            if (t0 !== undefined) {
+                dur = e.timeStamp - t0;
+                if (dur < (dit*2.5)) {
+                    ditdahs.innerHTML = ditdahs.innerHTML + '.';
+                } else {
+                    ditdahs.innerHTML = ditdahs.innerHTML + '-';
+                };
+                timeoutID = setTimeout(interpret_morse,dit*3);
+                ready_down = true;
+            }
         });
 
     </script>

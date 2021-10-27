@@ -16,3 +16,11 @@ delete_button.addEventListener('mousedown', function (e) {
 delete_button.addEventListener('mouseup', function (e) {
     e.stopPropagation();
 }, true)
+
+delete_button.addEventListener('touchstart', function (e) {
+    e.stopPropagation();
+}, true)
+
+delete_button.addEventListener('touchend', function (e) {
+    e.stopPropagation();
+}, true)
