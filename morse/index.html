@@ -61,8 +61,10 @@
                 overflow: auto; /* Enable scroll if needed */
                 background-color: rgb(0,0,0); /* Fallback color */
                 background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                touch-action: none;
             }
             .modal-content {
+                display: none;
                 background-color: #fefefe;
                 margin: 15% auto; /* 15% from the top and centered */
                 padding: 20px;
@@ -86,7 +88,7 @@
     </head>
     <body>
         <div id="modal" class="modal">
-            <div class="content-help modal-content">
+            <div class="help-content modal-content">
                 <span id="close-help" class="close">&times;</span>
                 <p><b>What is this?</b></p>
                 <p>
