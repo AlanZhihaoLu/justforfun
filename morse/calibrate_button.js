@@ -15,3 +15,5 @@ cal_button.addEventListener('touchstart', function (e) {
 cal_button.addEventListener('touchend', function (e) {
     e.stopPropagation();
 }, true)
+
+// absorbEvents(cal_button, ['mousedown','mouseup','touchstart','touchend']);

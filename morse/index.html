@@ -4,7 +4,7 @@
             Morse Interpreter
         </title>
         <style>
-            body {
+            #main-app {
                 touch-action: manipulation;
                 -webkit-touch-callout: none;
                 /* -webkit-text-size-adjust: none; */
@@ -50,40 +50,91 @@
                 overflow: auto;
                 resize: both;
             }
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto; /* 15% from the top and centered */
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%; /* Could be more or less, depending on screen size */
+                font-size: 3vh;
+            }
+            /* The Close Button */
+            .close {
+                color: #aaa;
+                float: right;
+                font-weight: bold;
+            }
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
-        <div class="unselectable" style="display:flex;justify-content:flex-end;">
-            <button class="cal-button" style="font-size:5vh;">calibrate</button>
-            <div style="margin-left:auto;">
-                <button class="options-button" style="font-size:5vh;">options</button>
-                <button class="help-button" style="font-size:5vh;">help</button>
-            </div>
+        <div id="modal" class="modal">
+            <div class="content-help modal-content">
+                <span id="close-help" class="close">&times;</span>
+                <p><b>What is this?</b></p>
+                <p>
+                    It translates morse code to letters. 
+                    Just click (if using mouse) or tap (if on mobile) out morse 
+                    code anywhere on the screen that's not occupied by buttons, 
+                    and what you tap out will be written out in the space below.
+                    Alternatively, if you have a keyboard, you can use the spacebar.
+                    By default a "dit" is considered 150ms. You can change this default
+                    by using the "calibrate" button.
+                </p>
+            </div>  
         </div>
-        <!-- <div style="display:flex;justify-content:center;">
-            <span style='padding:1vh;font-size:3vh;'>mode</span>
-        </div> -->
-        <div class="unselectable" style="display:flex;justify-content:center;align-items:center;height:25vh;font-size:10vh;">
-            Morse Interpreter
-        </div>
-        <div>
-            <div class="unselectable inputarea" style="display:flex;justify-content:center;align-items:center;height:20vh;font-size:10vh;">
-                <span style="margin-left:0.2em;">
-                    <span id="interpreted" style='white-space:pre-wrap;'></span>
-                    <span id="ditdahs" style='opacity:0.5;margin-left:-0.1em;'></span>
-                    <span id="cursor" style='position:relative;font-size:1.2em;top:0.05em;margin-left:-0.1em;'>|</span>
-                </span>
+        <div id="main-app">
+            <div class="unselectable" style="display:flex;justify-content:flex-end;">
+                <button class="cal-button" style="font-size:5vh;">calibrate</button>
+                <div style="margin-left:auto;">
+                    <button class="options-button" style="font-size:5vh;">options</button>
+                    <button class="help-button" style="font-size:5vh;">help</button>
+                </div>
             </div>
-            <div style="display:flex;justify-content:center;align-items:flex-end;height:20vh;">
-                <button class="del-button unselectable" style="font-size:10vh;">delete</button>
+            <div class="unselectable" style="display:flex;justify-content:center;align-items:center;height:25vh;font-size:10vh;">
+                Morse Interpreter
+            </div>
+            <div>
+                <div class="unselectable inputarea" style="display:flex;justify-content:center;align-items:center;height:20vh;font-size:10vh;">
+                    <span style="margin-left:0.2em;">
+                        <span id="interpreted" style='white-space:pre-wrap;'></span>
+                        <span id="ditdahs" style='opacity:0.5;margin-left:-0.1em;'></span>
+                        <span id="cursor" style='position:relative;font-size:1.2em;top:0.05em;margin-left:-0.1em;'>|</span>
+                    </span>
+                </div>
+                <div style="display:flex;justify-content:center;align-items:flex-end;height:20vh;">
+                    <button class="del-button unselectable" style="font-size:10vh;">delete</button>
+                </div>
             </div>
         </div>
     </body>
     <script src="cursor_blink.js"></script>
+    <script src="absorb_event.js"></script>
     <script src="delete_button.js"></script>
     <script src="calibrate_button.js"></script>
     <script src="help_button.js"></script>
     <script>
+        var modal = document.getElementById("modal");
+
+        var app = document.getElementById("main-app");
+        
         var audioObj = new Audio('440Hz.mp3');
         audioObj.volume = 0.1;
         var interpreted = document.querySelector('#interpreted');
@@ -136,7 +187,14 @@
         var t0;
         var dur;
 
-        document.body.addEventListener('mousedown', function (e) {
+        modal.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        })
+
+        app.addEventListener('mousedown', function (e) {
             e.preventDefault();
             if (ready_down) {
                 t0 = e.timeStamp;
@@ -147,7 +205,7 @@
                 ready_down = false;
             }
         })
-        document.body.addEventListener('mouseup', function(e) {
+        app.addEventListener('mouseup', function(e) {
             e.preventDefault();
             if (t0 !== undefined) {
                 dur = e.timeStamp - t0;
@@ -163,7 +221,7 @@
             }
         })
 
-        document.body.addEventListener('keydown', function (e) {
+        app.addEventListener('keydown', function (e) {
             if (e.keyCode === 8) {
                 if (timeoutID !== undefined) {
                         clearTimeout(timeoutID);
@@ -184,7 +242,7 @@
                 ready_down = false;
             }
         })
-        document.body.addEventListener('keyup', function(e) {
+        app.addEventListener('keyup', function(e) {
             if (e.keyCode === 32 && t0 !== undefined) {
                 dur = e.timeStamp - t0;
                 if (dur < (dit*2.5)) {
@@ -209,7 +267,7 @@
             }
         }
 
-        document.body.addEventListener('touchstart', e => {
+        app.addEventListener('touchstart', e => {
             e.preventDefault();
             if (ready_down) {
                 t0 = e.timeStamp;
@@ -220,7 +278,7 @@
             }
         });
 
-        document.body.addEventListener('touchend', e => {
+        app.addEventListener('touchend', e => {
             e.preventDefault();
             if (t0 !== undefined) {
                 dur = e.timeStamp - t0;
