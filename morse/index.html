@@ -3,6 +3,7 @@
         <title>
             Morse Interpreter
         </title>
+        <link rel="stylesheet" href="slider.css">
         <style>
             #main-app {
                 touch-action: manipulation;
@@ -101,6 +102,15 @@
                     by using the "calibrate" button.
                 </p>
             </div>  
+            <div class="options-content modal-content">
+                <span id="close-options" class="close">&times;</span>
+                <p><b>Options</b></p>
+                <div class="volume-container">
+                    Audio Feedback Volume: <span id="volume-level"></span>
+                    <br>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="volume-range">
+                </div>
+            </div>  
         </div>
         <div id="main-app">
             <div class="unselectable" style="display:flex;justify-content:flex-end;">
@@ -132,6 +142,7 @@
     <script src="delete_button.js"></script>
     <script src="calibrate_button.js"></script>
     <script src="help_button.js"></script>
+    <script src="options_button.js"></script>
     <script>
         var modal = document.getElementById("modal");
 
@@ -192,6 +203,8 @@
         modal.addEventListener('click', function (e) {
             e.preventDefault();
             if (e.target === modal) {
+                help_content.style.display = "none";
+                options_content.style.display = "none";
                 modal.style.display = "none";
             }
         })
