@@ -106,10 +106,34 @@
                 <span id="close-options" class="close">&times;</span>
                 <p><b>Options</b></p>
                 <div class="volume-container">
-                    Audio Feedback Volume: <span id="volume-level"></span>
+                    Audio Feedback Volume: <span id="volume-level">50</span>
                     <br>
-                    <input type="range" min="1" max="100" value="50" class="slider" id="volume-range">
+                    <input type="range" min="0" max="100" value="50" class="slider" id="volume-slider" onchange="change_volume()">
                 </div>
+            </div>  
+            <div class="cal-content modal-content">
+                <span id="close-cal" class="close">&times;</span>
+                <p><b>Calibrate</b></p>
+                <p>Calibrate timing. By default a "dit" is considered 150ms.</p>
+                <p>To calibrate, click, tap, or spacebar out the letters below:</p>
+                <p style="font-size:5vh">h: 
+                    <span class="hcal" style="opacity:0.5;">
+                        <span id="1">.</span>
+                        <span id="2">.</span>
+                        <span id="3">.</span>
+                        <span id="4">.</span>
+                        <span id="greatfeedback" style="opacity:0;">Great!</span>
+                    </span>
+                </p>
+                <p style="font-size:5vh">p: 
+                    <span class="hcal" style="opacity:0.5;">
+                        <span id="1">.</span>
+                        <span id="2">-</span>
+                        <span id="3">-</span>
+                        <span id="4">.</span>
+                        <span id="greatfeedback" style="opacity:0;">Great!</span>
+                    </span>
+                </p>
             </div>  
         </div>
         <div id="main-app">
@@ -143,13 +167,23 @@
     <script src="calibrate_button.js"></script>
     <script src="help_button.js"></script>
     <script src="options_button.js"></script>
+    <script src="mobile_check.js"></script>
     <script>
         var modal = document.getElementById("modal");
+        modal.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (e.target === modal) {
+                help_content.style.display = "none";
+                options_content.style.display = "none";
+                cal_content.style.display = "none";
+                modal.style.display = "none";
+            }
+        })
 
         var app = document.getElementById("main-app");
         
         var audioObj = new Audio('440Hz.mp3');
-        audioObj.volume = 0.1;
+        audioObj.volume = 0.2;
         var interpreted = document.querySelector('#interpreted');
         var ditdahs = document.querySelector('#ditdahs');
 
@@ -194,33 +228,28 @@
 
         var dit = 150;
         ditdahs.innerHTML = '';
+        var onMobile = window.mobileAndTabletCheck();
+        var audioReady = !onMobile;
         var timeoutID;
 
         var ready_down = true;
         var t0;
         var dur;
 
-        modal.addEventListener('click', function (e) {
-            e.preventDefault();
-            if (e.target === modal) {
-                help_content.style.display = "none";
-                options_content.style.display = "none";
-                modal.style.display = "none";
-            }
-        })
-
-        app.addEventListener('mousedown', function (e) {
+        function handle_mousedown(e) {
             e.preventDefault();
             if (ready_down) {
                 t0 = e.timeStamp;
                 if (timeoutID !== undefined) {
                     clearTimeout(timeoutID);
                 }
-                audioObj.play()
+                if (audioReady) {
+                    audioObj.play()
+                }
                 ready_down = false;
             }
-        })
-        app.addEventListener('mouseup', function(e) {
+        }
+        function handle_mouseup(e) {
             e.preventDefault();
             if (t0 !== undefined) {
                 dur = e.timeStamp - t0;
@@ -230,13 +259,15 @@
                     ditdahs.innerHTML = ditdahs.innerHTML + '-';
                 };
                 timeoutID = setTimeout(interpret_morse,dit*3);
-                audioObj.pause()
-                audioObj.currentTime = 0;
+                if (audioReady) {
+                    audioObj.pause()
+                    audioObj.currentTime = 0;
+                }
                 ready_down = true;
             }
-        })
+        }
 
-        app.addEventListener('keydown', function (e) {
+        function handle_keydown(e) {
             if (e.keyCode === 8) {
                 if (timeoutID !== undefined) {
                         clearTimeout(timeoutID);
@@ -253,11 +284,14 @@
                 if (timeoutID !== undefined) {
                     clearTimeout(timeoutID);
                 }
-                audioObj.play()
+                if (audioReady) {
+                    audioObj.play()
+                }
                 ready_down = false;
             }
-        })
-        app.addEventListener('keyup', function(e) {
+        }
+
+        function handle_keyup(e) {
             if (e.keyCode === 32 && t0 !== undefined) {
                 dur = e.timeStamp - t0;
                 if (dur < (dit*2.5)) {
@@ -266,11 +300,13 @@
                     ditdahs.innerHTML = ditdahs.innerHTML + '-';
                 };
                 timeoutID = setTimeout(interpret_morse,dit*3);
-                audioObj.pause()
-                audioObj.currentTime = 0;
+                if (audioReady) {
+                    audioObj.pause()
+                    audioObj.currentTime = 0;
+                }
                 ready_down = true;
             }
-        })
+        }
 
         function interpret_morse() {
             if (morse_dict[ditdahs.innerHTML] !== undefined) {
@@ -282,30 +318,15 @@
             }
         }
 
-        app.addEventListener('touchstart', e => {
-            e.preventDefault();
-            if (ready_down) {
-                t0 = e.timeStamp;
-                if (timeoutID !== undefined) {
-                    clearTimeout(timeoutID);
-                }
-                ready_down = false;
-            }
-        });
+        app.addEventListener('mousedown', handle_mousedown)
+        app.addEventListener('mouseup', handle_mouseup)
 
-        app.addEventListener('touchend', e => {
-            e.preventDefault();
-            if (t0 !== undefined) {
-                dur = e.timeStamp - t0;
-                if (dur < (dit*2.5)) {
-                    ditdahs.innerHTML = ditdahs.innerHTML + '.';
-                } else {
-                    ditdahs.innerHTML = ditdahs.innerHTML + '-';
-                };
-                timeoutID = setTimeout(interpret_morse,dit*3);
-                ready_down = true;
-            }
-        });
+        document.body.addEventListener('keydown', handle_keydown)
+        document.body.addEventListener('keyup', handle_keyup)
+
+        app.addEventListener('touchstart', handle_mousedown);
+
+        app.addEventListener('touchend', handle_mouseup);
 
     </script>
 </html>
