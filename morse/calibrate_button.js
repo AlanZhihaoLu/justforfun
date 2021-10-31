@@ -54,6 +54,7 @@ absorbEvents(cal_button);
 
 start_cal.addEventListener('mouseup', function(e) {
     e.stopImmediatePropagation();
+    start_cal.innerHTML = 'Reset';
     cal_letter_container.style.display = "block";
     cal_letters = letters.sort(() => 0.5 - Math.random()).slice(0,3);
     cal_letter_container.innerHTML = create_cal_letters_html(cal_letters);
@@ -67,8 +68,6 @@ var t0;
 var dur;
 
 var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-
-// var cal_letters = letters.sort(() => 0.5 - Math.random()).slice(0,3);
 
 function create_cal_letters_html(cal_letters) {
     var html_output = '';
