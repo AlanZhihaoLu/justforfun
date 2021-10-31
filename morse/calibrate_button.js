@@ -53,7 +53,30 @@ var dur;
 var dur_list = [];
 var dit_mean_list = [];
 
-var cal_letters = ['h','p'];
+var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+var cal_letters = letters.sort(() => 0.5 - Math.random()).slice(0,3);
+
+function create_cal_letters_html(cal_letters) {
+    var html_output = '';
+    for (letter of cal_letters) {
+        var doot_list = alpha_dict[letter].split('');
+        var doot_html = '';
+        for (let i = 0; i < doot_list.length; i++) {
+            doot_html += `<span class="visFeedback">${doot_list[i]}</span>`;
+        }
+        html_template = `<p style="font-size:5vh">${letter}: ` +
+        `<span class="${letter}cal">` +
+        doot_html +
+        '<span class="greatFeedback"> Great!</span>' +
+        '</span>' +
+        '</p>';
+        html_output += html_template;
+    }
+    return html_output;
+}
+
+cal_letter_container.innerHTML = create_cal_letters_html(cal_letters);
 var n_cal_letters = cal_letters.length;
 
 var visFeedback_list = [];
@@ -101,6 +124,7 @@ function handle_mouseup_calibrate(e) {
         if (cur_letter_idx < n_cal_letters) {
             cur_doots = visFeedback_list[cur_letter_idx];
             cur_great = greatFeedback_list[cur_letter_idx][0];
+            cur_n_doots = alpha_dict[cal_letters[cur_letter_idx]].length;
             dur_list = [];
         } else {
             cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
