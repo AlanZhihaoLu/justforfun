@@ -44,8 +44,15 @@ var t0;
 var dur;
 var dur_list = [];
 
-hdoots = document.querySelectorAll('.hcal > span.visFeedback');
-pdoots = document.querySelectorAll('.pcal > span.visFeedback');
+
+var hdoots = document.querySelectorAll('.hcal > span.visFeedback');
+var pdoots = document.querySelectorAll('.pcal > span.visFeedback');
+
+var hgreat = document.querySelector('.hcal > span.greatFeedback');
+var pgreat = document.querySelector('.pcal > span.greatFeedback');
+
+var cur_doots = hdoots;
+var cur_great = hgreat;
 
 function handle_mousedown_calibrate(e) {
     e.preventDefault();
@@ -65,6 +72,7 @@ function handle_mouseup_calibrate(e) {
     if (t0 !== undefined) {
         dur = e.timeStamp - t0;
         dur_list.push(dur);
+        cur_doots[dur_list.length-1].style.opacity = 1;
         if (audioReady) {
             audioObj.pause();
             audioObj.currentTime = 0;
@@ -72,8 +80,10 @@ function handle_mouseup_calibrate(e) {
         ready_down = true;
     }
     if (dur_list.length === 4) {
-        cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
-        cal_content.removeEventListener('mouseup', handle_mouseup_calibrate);
+        cur_great.style.opacity = 1;
+        cur_doots = pdoots;
+        cur_great = pgreat;
+        dur_list = [];
     }
 }
 
