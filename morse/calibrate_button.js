@@ -1,6 +1,8 @@
 var cal_button = document.body.querySelector('.cal-button');
 var cal_content = document.body.querySelector('.cal-content');
-var close_cal = document.querySelector("#close-cal");
+var close_cal = document.querySelector('#close-cal');
+var start_cal = document.querySelector('div.cal-content button.start-cal');
+var cal_letter_container = document.querySelector('div.cal-content div.cal-letter-container');
 
 cal_button.addEventListener('mousedown', function (e) {
     e.stopPropagation();
@@ -38,6 +40,12 @@ close_cal.addEventListener('touchend', function(e) {
 }, true)
 
 absorbEvents(cal_button);
+
+start_cal.addEventListener('mouseup', function(e) {
+    cal_letter_container.style.display = "block";
+    cal_content.addEventListener('mousedown', handle_mousedown_calibrate);
+    cal_content.addEventListener('mouseup', handle_mouseup_calibrate);
+})
 
 var ready_down = true;
 var t0;
@@ -113,6 +121,3 @@ function interpret_cal_doots(dootString, dootDurs) {
     }
     return average(dootDurs);
 }
-
-cal_content.addEventListener('mousedown', handle_mousedown_calibrate);
-cal_content.addEventListener('mouseup', handle_mouseup_calibrate);
