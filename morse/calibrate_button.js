@@ -4,6 +4,17 @@ var close_cal = document.querySelector('#close-cal');
 var start_cal = document.querySelector('div.cal-content button.start-cal');
 var cal_letter_container = document.querySelector('div.cal-content div.cal-letter-container');
 
+var n_cal_letters;
+var visFeedback_list;
+var greatFeedback_list;
+var cur_letter_idx;
+var cur_doots;
+var cur_great;
+var cur_n_doots;
+var dur_list;
+var dit_mean_list;
+var cal_letters;
+
 cal_button.addEventListener('mousedown', function (e) {
     e.stopPropagation();
     // remove keypress event listeners to prevent default action
@@ -42,20 +53,22 @@ close_cal.addEventListener('touchend', function(e) {
 absorbEvents(cal_button);
 
 start_cal.addEventListener('mouseup', function(e) {
+    e.stopImmediatePropagation();
     cal_letter_container.style.display = "block";
+    cal_letters = letters.sort(() => 0.5 - Math.random()).slice(0,3);
+    cal_letter_container.innerHTML = create_cal_letters_html(cal_letters);
+    prep_cal();
     cal_content.addEventListener('mousedown', handle_mousedown_calibrate);
     cal_content.addEventListener('mouseup', handle_mouseup_calibrate);
-})
+}, true)
 
 var ready_down = true;
 var t0;
 var dur;
-var dur_list = [];
-var dit_mean_list = [];
 
 var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-var cal_letters = letters.sort(() => 0.5 - Math.random()).slice(0,3);
+// var cal_letters = letters.sort(() => 0.5 - Math.random()).slice(0,3);
 
 function create_cal_letters_html(cal_letters) {
     var html_output = '';
@@ -76,21 +89,21 @@ function create_cal_letters_html(cal_letters) {
     return html_output;
 }
 
-cal_letter_container.innerHTML = create_cal_letters_html(cal_letters);
-var n_cal_letters = cal_letters.length;
-
-var visFeedback_list = [];
-var greatFeedback_list = [];
-
-for (letter of cal_letters) {
-    visFeedback_list.push(document.querySelectorAll(`.${letter}cal > span.visFeedback`));
-    greatFeedback_list.push(document.querySelectorAll(`.${letter}cal > span.greatFeedback`));
+function prep_cal() {
+    n_cal_letters = cal_letters.length;
+    visFeedback_list = [];
+    greatFeedback_list = [];
+    for (letter of cal_letters) {
+        visFeedback_list.push(document.querySelectorAll(`.${letter}cal > span.visFeedback`));
+        greatFeedback_list.push(document.querySelectorAll(`.${letter}cal > span.greatFeedback`));
+    }
+    cur_letter_idx = 0;
+    cur_doots = visFeedback_list[cur_letter_idx];
+    cur_great = greatFeedback_list[cur_letter_idx][0];
+    cur_n_doots = alpha_dict[cal_letters[0]].length;
+    dur_list = [];
+    dit_mean_list = [];
 }
-
-var cur_letter_idx = 0;
-var cur_doots = visFeedback_list[cur_letter_idx];
-var cur_great = greatFeedback_list[cur_letter_idx][0];
-var cur_n_doots = alpha_dict[cal_letters[0]].length;
 
 function handle_mousedown_calibrate(e) {
     e.preventDefault();
