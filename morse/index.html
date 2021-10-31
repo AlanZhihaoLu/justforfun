@@ -91,6 +91,9 @@
             .greatFeedback {
                 opacity:0;
             }
+            .cal-letter-container {
+                display:none;
+            }
         </style>
     </head>
     <body>
@@ -120,26 +123,29 @@
             <div class="cal-content modal-content">
                 <span id="close-cal" class="close">&times;</span>
                 <p><b>Calibrate</b></p>
-                <p>Calibrate timing. By default a "dit" is considered 150ms.</p>
-                <p>To calibrate, click, tap, or spacebar out the letters shown below. <button>Start</button></p>
-                <p style="font-size:5vh">h: 
-                    <span class="hcal">
-                        <span class="visFeedback">.</span>
-                        <span class="visFeedback">.</span>
-                        <span class="visFeedback">.</span>
-                        <span class="visFeedback">.</span>
-                        <span class="greatFeedback" style="opacity:0;">Great!</span>
-                    </span>
-                </p>
-                <p style="font-size:5vh">p: 
-                    <span class="pcal">
-                        <span class="visFeedback">.</span>
-                        <span class="visFeedback">-</span>
-                        <span class="visFeedback">-</span>
-                        <span class="visFeedback">.</span>
-                        <span class="greatFeedback">Great!</span>
-                    </span>
-                </p>
+                <p>Calibrate timing. By default a "dit" is considered 150ms. <i>The current dit duration is set to <span id="dit-ind"></span>ms.</i></p>
+                <p>To calibrate, press the start button and click, tap, or spacebar out the letters that appear below.</p>
+                <button>Start</button>
+                <div class="cal-letter-container">
+                    <p style="font-size:5vh">h: 
+                        <span class="hcal">
+                            <span class="visFeedback">.</span>
+                            <span class="visFeedback">.</span>
+                            <span class="visFeedback">.</span>
+                            <span class="visFeedback">.</span>
+                            <span class="greatFeedback">Great!</span>
+                        </span>
+                    </p>
+                    <p style="font-size:5vh">p: 
+                        <span class="pcal">
+                            <span class="visFeedback">.</span>
+                            <span class="visFeedback">-</span>
+                            <span class="visFeedback">-</span>
+                            <span class="visFeedback">.</span>
+                            <span class="greatFeedback">Great!</span>
+                        </span>
+                    </p>
+                </div>
             </div>  
         </div>
         <div id="main-app">
@@ -167,6 +173,7 @@
             </div>
         </div>
     </body>
+    <script src="morse_dicts.js"></script>
     <script src="cursor_blink.js"></script>
     <script src="absorb_event.js"></script>
     <script src="delete_button.js"></script>
@@ -198,47 +205,10 @@
         audioObj.volume = 0.2;
         var interpreted = document.querySelector('#interpreted');
         var ditdahs = document.querySelector('#ditdahs');
-
-        var morse_dict = {
-            '.-':'a',
-            '-...':'b',
-            '-.-.':'c',
-            '-..':'d',
-            '.':'e',
-            '..-.':'f',
-            '--.':'g',
-            '....':'h',
-            '..':'i',
-            '.---':'j',
-            '-.-':'k',
-            '.-..':'l',
-            '--':'m',
-            '-.':'n',
-            '---':'o',
-            '.--.':'p',
-            '--.-':'q',
-            '.-.':'r',
-            '...':'s',
-            '-':'t',
-            '..-':'u',
-            '...-':'v',
-            '.--':'w',
-            '-..-':'x',
-            '-.--':'y',
-            '--..':'z',
-            '.----':'1',
-            '..---':'2',
-            '...--':'3',
-            '....-':'4',
-            '.....':'5',
-            '-....':'6',
-            '--...':'7',
-            '---..':'8',
-            '----.':'9',
-            '-----':'0'
-        }
+        var dit_ind = document.querySelector('.modal .cal-content #dit-ind')
 
         var dit = 150;
+        dit_ind.innerHTML = dit;
         ditdahs.innerHTML = '';
         var onMobile = window.mobileAndTabletCheck();
         var audioReady = !onMobile;

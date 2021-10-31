@@ -43,16 +43,23 @@ var ready_down = true;
 var t0;
 var dur;
 var dur_list = [];
+var dit_mean_list = [];
 
+var cal_letters = ['h','p'];
+var n_cal_letters = cal_letters.length;
 
-var hdoots = document.querySelectorAll('.hcal > span.visFeedback');
-var pdoots = document.querySelectorAll('.pcal > span.visFeedback');
+var visFeedback_list = [];
+var greatFeedback_list = [];
 
-var hgreat = document.querySelector('.hcal > span.greatFeedback');
-var pgreat = document.querySelector('.pcal > span.greatFeedback');
+for (letter of cal_letters) {
+    visFeedback_list.push(document.querySelectorAll(`.${letter}cal > span.visFeedback`));
+    greatFeedback_list.push(document.querySelectorAll(`.${letter}cal > span.greatFeedback`));
+}
 
-var cur_doots = hdoots;
-var cur_great = hgreat;
+var cur_letter_idx = 0;
+var cur_doots = visFeedback_list[cur_letter_idx];
+var cur_great = greatFeedback_list[cur_letter_idx][0];
+var cur_n_doots = alpha_dict[cal_letters[0]].length;
 
 function handle_mousedown_calibrate(e) {
     e.preventDefault();
@@ -79,12 +86,32 @@ function handle_mouseup_calibrate(e) {
         }
         ready_down = true;
     }
-    if (dur_list.length === 4) {
+    if (dur_list.length === cur_n_doots) {
+        dit_mean_list.push(interpret_cal_doots(alpha_dict[cal_letters[cur_letter_idx]], dur_list));
         cur_great.style.opacity = 1;
-        cur_doots = pdoots;
-        cur_great = pgreat;
-        dur_list = [];
+        cur_letter_idx += 1;
+        if (cur_letter_idx < n_cal_letters) {
+            cur_doots = visFeedback_list[cur_letter_idx];
+            cur_great = greatFeedback_list[cur_letter_idx][0];
+            dur_list = [];
+        } else {
+            cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
+            cal_content.removeEventListener('mouseup', handle_mouseup_calibrate);
+            dit = Math.round(average(dit_mean_list));
+            dit_ind.innerHTML = dit;
+        }
     }
+}
+
+var average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
+
+function interpret_cal_doots(dootString, dootDurs) {
+    for (let i = 0; i < dootString.length; i++) {
+        if (dootString[i] === '-') {
+            dootDurs[i] = dootDurs[i]/3;
+        }
+    }
+    return average(dootDurs);
 }
 
 cal_content.addEventListener('mousedown', handle_mousedown_calibrate);
