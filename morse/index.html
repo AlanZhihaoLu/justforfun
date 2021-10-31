@@ -85,6 +85,12 @@
                 text-decoration: none;
                 cursor: pointer;
             }
+            .visFeedback {
+                opacity:0.5;
+            }
+            .greatFeedback {
+                opacity:0;
+            }
         </style>
     </head>
     <body>
@@ -115,23 +121,23 @@
                 <span id="close-cal" class="close">&times;</span>
                 <p><b>Calibrate</b></p>
                 <p>Calibrate timing. By default a "dit" is considered 150ms.</p>
-                <p>To calibrate, click, tap, or spacebar out the letters below:</p>
+                <p>To calibrate, click, tap, or spacebar out the letters shown below. <button>Start</button></p>
                 <p style="font-size:5vh">h: 
-                    <span class="hcal" style="opacity:0.5;">
-                        <span id="1">.</span>
-                        <span id="2">.</span>
-                        <span id="3">.</span>
-                        <span id="4">.</span>
-                        <span id="greatfeedback" style="opacity:0;">Great!</span>
+                    <span class="hcal">
+                        <span class="visFeedback">.</span>
+                        <span class="visFeedback">.</span>
+                        <span class="visFeedback">.</span>
+                        <span class="visFeedback">.</span>
+                        <span class="greatFeedback" style="opacity:0;">Great!</span>
                     </span>
                 </p>
                 <p style="font-size:5vh">p: 
-                    <span class="hcal" style="opacity:0.5;">
-                        <span id="1">.</span>
-                        <span id="2">-</span>
-                        <span id="3">-</span>
-                        <span id="4">.</span>
-                        <span id="greatfeedback" style="opacity:0;">Great!</span>
+                    <span class="pcal">
+                        <span class="visFeedback">.</span>
+                        <span class="visFeedback">-</span>
+                        <span class="visFeedback">-</span>
+                        <span class="visFeedback">.</span>
+                        <span class="greatFeedback">Great!</span>
                     </span>
                 </p>
             </div>  
@@ -169,6 +175,8 @@
     <script src="options_button.js"></script>
     <script src="mobile_check.js"></script>
     <script>
+        var keypress_interpreter_inactive = false;
+
         var modal = document.getElementById("modal");
         modal.addEventListener('click', function (e) {
             e.preventDefault();
@@ -177,6 +185,10 @@
                 options_content.style.display = "none";
                 cal_content.style.display = "none";
                 modal.style.display = "none";
+            }
+            if (keypress_interpreter_inactive) {
+                document.body.addEventListener('keydown', handle_keydown)
+                document.body.addEventListener('keyup', handle_keyup)
             }
         })
 
