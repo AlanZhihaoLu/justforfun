@@ -39,6 +39,11 @@ close_cal.addEventListener('mouseup', function(e) {
     e.stopPropagation();
     cal_content.style.display="none";
     modal.style.display="none";
+    if (calibrate_on) {
+        calibrate_on = false;
+        cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
+        cal_content.removeEventListener('mouseup', handle_mouseup_calibrate);
+    }
     // re-add keypress default event listeners 
     document.body.addEventListener('keydown', handle_keydown)
     document.body.addEventListener('keyup', handle_keyup)
@@ -52,6 +57,10 @@ close_cal.addEventListener('touchend', function(e) {
 
 absorbEvents(cal_button);
 
+start_cal.addEventListener('mousedown', function(e) {
+    e.stopImmediatePropagation();
+}, true)
+
 start_cal.addEventListener('mouseup', function(e) {
     e.stopImmediatePropagation();
     start_cal.innerHTML = 'Reset';
@@ -59,8 +68,11 @@ start_cal.addEventListener('mouseup', function(e) {
     cal_letters = letters.sort(() => 0.5 - Math.random()).slice(0,3);
     cal_letter_container.innerHTML = create_cal_letters_html(cal_letters);
     prep_cal();
-    cal_content.addEventListener('mousedown', handle_mousedown_calibrate);
-    cal_content.addEventListener('mouseup', handle_mouseup_calibrate);
+    if (!calibrate_on) {
+        calibrate_on = true;
+        cal_content.addEventListener('mousedown', handle_mousedown_calibrate);
+        cal_content.addEventListener('mouseup', handle_mouseup_calibrate);
+    }
 }, true)
 
 var ready_down = true;
@@ -139,8 +151,11 @@ function handle_mouseup_calibrate(e) {
             cur_n_doots = alpha_dict[cal_letters[cur_letter_idx]].length;
             dur_list = [];
         } else {
-            cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
-            cal_content.removeEventListener('mouseup', handle_mouseup_calibrate);
+            if (calibrate_on) {
+                calibrate_on = false;
+                cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
+                cal_content.removeEventListener('mouseup', handle_mouseup_calibrate);
+            }
             dit = Math.round(average(dit_mean_list));
             dit_ind.innerHTML = dit;
         }
