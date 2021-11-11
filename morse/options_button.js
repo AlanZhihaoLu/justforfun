@@ -21,7 +21,7 @@ options_button.addEventListener('touchstart', function (e) {
     options_content.style.display = "block";
 }, true)
 
-close_options.addEventListener('click', function(e) {
+close_options.addEventListener('mouseup', function(e) {
     e.stopPropagation();
     options_content.style.display="none";
     modal.style.display="none";

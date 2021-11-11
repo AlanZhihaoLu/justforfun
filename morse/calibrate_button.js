@@ -15,23 +15,26 @@ var dur_list;
 var dit_mean_list;
 var cal_letters;
 
-cal_button.addEventListener('mousedown', function (e) {
+// Removes keypress event listeners to prevent default action, displays modal (see handle_cal_button)
+// Mouse click
+cal_button.addEventListener('mousedown', handle_cal_button, true)
+// Mobile tap
+cal_button.addEventListener('touchstart', handle_cal_button, true)
+// Stop propagation for mouseup and touchstart
+absorbEvents(cal_button);
+
+// Function to handle calibration button press
+// Removes keypress event listeners to prevent default action, displays modal
+function handle_cal_button(e) {
     e.stopPropagation();
     // remove keypress event listeners to prevent default action
     document.body.removeEventListener("keydown", handle_keydown);
     document.body.removeEventListener("keyup", handle_keyup);
     keypress_interpreter_inactive = true;
+    // display modal
     modal.style.display = "block";
     cal_content.style.display = "block";
-}, true)
-
-cal_button.addEventListener('touchstart', function (e) {
-    e.stopPropagation();
-    modal.style.display = "block";
-    cal_content.style.display = "block";
-}, true)
-
-absorbEvents(cal_button);
+}
 
 close_cal.addEventListener('mousedown', function(e) {
     e.stopPropagation();

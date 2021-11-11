@@ -14,7 +14,7 @@ help_button.addEventListener('touchstart', function (e) {
     help_content.style.display = "block";
 }, true)
 
-close_help.addEventListener('click', function(e) {
+close_help.addEventListener('mouseup', function(e) {
     e.stopPropagation();
     help_content.style.display="none";
     modal.style.display="none";
