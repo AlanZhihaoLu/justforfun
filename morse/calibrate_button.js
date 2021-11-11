@@ -70,6 +70,9 @@ function add_cal_listeners() {
     // Touch events are basically the same as mouse click events, so just use the same callback functions
     cal_content.addEventListener('touchstart', handle_mousedown_calibrate);
     cal_content.addEventListener('touchend', handle_mouseup_calibrate);
+    // Calibration keypress listeners
+    document.body.addEventListener('keydown', handle_keydown_calibrate)
+    document.body.addEventListener('keyup', handle_keyup_calibrate);
 }
 // Removes listeners
 function remove_cal_listeners() {
@@ -78,6 +81,9 @@ function remove_cal_listeners() {
     // Touch events are basically the same as mouse click events, so just use the same callback functions
     cal_content.removeEventListener('touchstart', handle_mousedown_calibrate);
     cal_content.removeEventListener('touchend', handle_mouseup_calibrate);
+    // Calibration keypress listeners
+    document.body.removeEventListener('keydown', handle_keydown_calibrate)
+    document.body.removeEventListener('keyup', handle_keyup_calibrate);
 }
 
 // Stop propagation for mousedown and touchstart 
@@ -170,6 +176,53 @@ function handle_mousedown_calibrate(e) {
 function handle_mouseup_calibrate(e) {
     e.preventDefault();
     if (t0 !== undefined) {
+        dur = e.timeStamp - t0;
+        dur_list.push(dur);
+        cur_doots[dur_list.length-1].style.opacity = 1;
+        if (audioReady) {
+            audioObj.pause();
+            audioObj.currentTime = 0;
+        }
+        ready_down = true;
+    }
+    if (dur_list.length === cur_n_doots) {
+        dit_mean_list.push(interpret_cal_doots(alpha_dict[cal_letters[cur_letter_idx]], dur_list));
+        cur_great.style.opacity = 1;
+        cur_letter_idx += 1;
+        if (cur_letter_idx < n_cal_letters) {
+            cur_doots = visFeedback_list[cur_letter_idx];
+            cur_great = greatFeedback_list[cur_letter_idx][0];
+            cur_n_doots = alpha_dict[cal_letters[cur_letter_idx]].length;
+            dur_list = [];
+        } else {
+            if (calibrate_on) {
+                calibrate_on = false;
+                remove_cal_listeners();
+            }
+            dit = Math.round(average(dit_mean_list));
+            dit_ind.innerHTML = dit;
+        }
+    }
+}
+// For keydown
+function handle_keydown_calibrate(e) {
+    if (e.keyCode === 32 && ready_down) {
+        t0 = e.timeStamp;
+        if (timeoutID !== undefined) {
+            clearTimeout(timeoutID);
+        }
+        if (audioReady) {
+            audioObj.play();
+        }
+        ready_down = false;
+    }
+}
+// For keyup
+// If last dit/dah in letter, computes average dit duration and updates dit_mean_list
+// If last dit/dah in last letter, computes overall average dit duration across letters and removes calibration mode listeners
+// (see interpret_cal_doots, remove_cal_listeners, average)
+function handle_keyup_calibrate(e) {
+    if (e.keyCode === 32 && t0 !== undefined) {
         dur = e.timeStamp - t0;
         dur_list.push(dur);
         cur_doots[dur_list.length-1].style.opacity = 1;
