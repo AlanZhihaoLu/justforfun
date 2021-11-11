@@ -63,7 +63,7 @@ start_cal.addEventListener('mousedown', function(e) {
 
 start_cal.addEventListener('mouseup', function(e) {
     e.stopImmediatePropagation();
-    start_cal.innerHTML = 'Reset';
+    start_cal.innerHTML = 'reset';
     cal_letter_container.style.display = "block";
     cal_letters = letters.sort(() => 0.5 - Math.random()).slice(0,3);
     cal_letter_container.innerHTML = create_cal_letters_html(cal_letters);
