@@ -20,7 +20,7 @@ var cal_letters;
 cal_button.addEventListener('mousedown', handle_cal_button, true)
 // Mobile tap
 cal_button.addEventListener('touchstart', handle_cal_button, true)
-// Stop propagation for mouseup and touchstart
+// Stop propagation for mouseup and touchend
 absorbEvents(cal_button);
 
 // Function to handle calibration button press
@@ -36,18 +36,19 @@ function handle_cal_button(e) {
     cal_content.style.display = "block";
 }
 
-close_cal.addEventListener('mousedown', function(e) {
-    e.stopPropagation();
-}, true)
+// Stop propagation for mousedown and touchstart (prevents input when in calibration mode)
+absorbEvents(close_cal, ['mousedown', 'touchstart']);
 
+// Removes modal display, removes listeners if in calibration mode, 
+// re-adds keypress default event listeners (see handle_close_cal)
+// Mouse click
 close_cal.addEventListener('mouseup', handle_close_cal, true)
-
-close_cal.addEventListener('touchstart', function(e) {
-    e.stopPropagation();
-}, true)
-
+// Mobile tap
 close_cal.addEventListener('touchend', handle_close_cal, true)
 
+// Function to handle close calibration X press
+// Removes modal display, removes listeners if in calibration mode
+// re-adds keypress default event listeners (see remove_cal_listeners)
 function handle_close_cal(e) {
     e.stopPropagation();
     cal_content.style.display="none";
@@ -61,18 +62,36 @@ function handle_close_cal(e) {
     document.body.addEventListener('keyup', handle_keyup)
 }
 
-start_cal.addEventListener('mousedown', function(e) {
-    e.stopImmediatePropagation();
-}, true)
+// Calibration mode listeners (see handle_mousedown_calibrate, handle_mouseup_calibrate)
+// Adds listeners
+function add_cal_listeners() {
+    cal_content.addEventListener('mousedown', handle_mousedown_calibrate);
+    cal_content.addEventListener('mouseup', handle_mouseup_calibrate);
+    // Touch events are basically the same as mouse click events, so just use the same callback functions
+    cal_content.addEventListener('touchstart', handle_mousedown_calibrate);
+    cal_content.addEventListener('touchend', handle_mouseup_calibrate);
+}
+// Removes listeners
+function remove_cal_listeners() {
+    cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
+    cal_content.removeEventListener('mouseup', handle_mouseup_calibrate);
+    // Touch events are basically the same as mouse click events, so just use the same callback functions
+    cal_content.removeEventListener('touchstart', handle_mousedown_calibrate);
+    cal_content.removeEventListener('touchend', handle_mouseup_calibrate);
+}
 
+// Stop propagation for mousedown and touchstart 
+absorbEvents(start_cal, ['mousedown', 'touchstart']);
+
+// Creates calibration letters, preps necessary calibration collection variables and 
+// selects necessary calibration elements, adds calibration mode listeners (see handle_start_cal)
+// Mouse click
 start_cal.addEventListener('mouseup', handle_start_cal, true)
-
-start_cal.addEventListener('touchstart', function(e) {
-    e.stopImmediatePropagation();
-}, true)
-
+// Mobile tap
 start_cal.addEventListener('touchend', handle_start_cal, true)
 
+// Creates calibration letters, preps necessary calibration collection variables and  
+// selects necessary calibration elements, adds calibration mode listeners (see create_cal_letters_html, prep_cal, add_cal_listeners)
 function handle_start_cal(e) {
     e.stopImmediatePropagation();
     start_cal.innerHTML = 'reset';
@@ -86,29 +105,13 @@ function handle_start_cal(e) {
     }
 }
 
-function add_cal_listeners() {
-    cal_content.addEventListener('mousedown', handle_mousedown_calibrate);
-    cal_content.addEventListener('mouseup', handle_mouseup_calibrate);
-    // Touch events are basically the same as mouse click events, so just use the same callback functions
-    cal_content.addEventListener('touchstart', handle_mousedown_calibrate);
-    cal_content.addEventListener('touchend', handle_mouseup_calibrate);
-}
-
-function remove_cal_listeners() {
-    cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
-    cal_content.removeEventListener('mouseup', handle_mouseup_calibrate);
-    // Touch events are basically the same as mouse click events, so just use the same callback functions
-    cal_content.removeEventListener('touchstart', handle_mousedown_calibrate);
-    cal_content.removeEventListener('touchend', handle_mouseup_calibrate);
-}
-
-
 var ready_down = true;
 var t0;
 var dur;
 
 var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
+// creates calibration letters, dynamically adds to html document
 function create_cal_letters_html(cal_letters) {
     var html_output = '';
     for (letter of cal_letters) {
@@ -128,6 +131,7 @@ function create_cal_letters_html(cal_letters) {
     return html_output;
 }
 
+// Preps necessary calibration collection variables and selects necessary calibration elements
 function prep_cal() {
     n_cal_letters = cal_letters.length;
     visFeedback_list = [];
@@ -144,6 +148,8 @@ function prep_cal() {
     dit_mean_list = [];
 }
 
+// Calibration listeners, collects click/tap events
+// For mousedown/touchstart
 function handle_mousedown_calibrate(e) {
     e.preventDefault();
     if (ready_down) {
@@ -157,6 +163,10 @@ function handle_mousedown_calibrate(e) {
         ready_down = false;
     }
 }
+// For mouseup/touchend 
+// If last dit/dah in letter, computes average dit duration and updates dit_mean_list
+// If last dit/dah in last letter, computes overall average dit duration across letters and removes calibration mode listeners
+// (see interpret_cal_doots, remove_cal_listeners, average)
 function handle_mouseup_calibrate(e) {
     e.preventDefault();
     if (t0 !== undefined) {
@@ -189,8 +199,7 @@ function handle_mouseup_calibrate(e) {
     }
 }
 
-var average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
-
+// Calculates weighted average dit duration across dits and dahs
 function interpret_cal_doots(dootString, dootDurs) {
     for (let i = 0; i < dootString.length; i++) {
         if (dootString[i] === '-') {
@@ -199,3 +208,6 @@ function interpret_cal_doots(dootString, dootDurs) {
     }
     return average(dootDurs);
 }
+
+// Helper function: takes the numerical average of an array
+var average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
