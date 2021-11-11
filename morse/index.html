@@ -180,8 +180,7 @@
                 modal.style.display = "none";
                 if (calibrate_on) {
                     calibrate_on = false;
-                    cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
-                    cal_content.removeEventListener('mouseup', handle_mouseup_calibrate);
+                    remove_cal_listeners();
                 }
                 if (keypress_interpreter_inactive) {
                     document.body.addEventListener('keydown', handle_keydown)

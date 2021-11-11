@@ -31,37 +31,46 @@ cal_button.addEventListener('touchstart', function (e) {
     cal_content.style.display = "block";
 }, true)
 
+absorbEvents(cal_button);
+
 close_cal.addEventListener('mousedown', function(e) {
     e.stopPropagation();
 }, true)
 
-close_cal.addEventListener('mouseup', function(e) {
+close_cal.addEventListener('mouseup', handle_close_cal, true)
+
+close_cal.addEventListener('touchstart', function(e) {
+    e.stopPropagation();
+}, true)
+
+close_cal.addEventListener('touchend', handle_close_cal, true)
+
+function handle_close_cal(e) {
     e.stopPropagation();
     cal_content.style.display="none";
     modal.style.display="none";
     if (calibrate_on) {
         calibrate_on = false;
-        cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
-        cal_content.removeEventListener('mouseup', handle_mouseup_calibrate);
+        remove_cal_listeners();
     }
     // re-add keypress default event listeners 
     document.body.addEventListener('keydown', handle_keydown)
     document.body.addEventListener('keyup', handle_keyup)
-}, true)
-
-close_cal.addEventListener('touchend', function(e) {
-    e.stopPropagation();
-    cal_content.style.display="none";
-    modal.style.display="none";
-}, true)
-
-absorbEvents(cal_button);
+}
 
 start_cal.addEventListener('mousedown', function(e) {
     e.stopImmediatePropagation();
 }, true)
 
-start_cal.addEventListener('mouseup', function(e) {
+start_cal.addEventListener('mouseup', handle_start_cal, true)
+
+start_cal.addEventListener('touchstart', function(e) {
+    e.stopImmediatePropagation();
+}, true)
+
+start_cal.addEventListener('touchend', handle_start_cal, true)
+
+function handle_start_cal(e) {
     e.stopImmediatePropagation();
     start_cal.innerHTML = 'reset';
     cal_letter_container.style.display = "block";
@@ -70,10 +79,26 @@ start_cal.addEventListener('mouseup', function(e) {
     prep_cal();
     if (!calibrate_on) {
         calibrate_on = true;
-        cal_content.addEventListener('mousedown', handle_mousedown_calibrate);
-        cal_content.addEventListener('mouseup', handle_mouseup_calibrate);
+        add_cal_listeners();
     }
-}, true)
+}
+
+function add_cal_listeners() {
+    cal_content.addEventListener('mousedown', handle_mousedown_calibrate);
+    cal_content.addEventListener('mouseup', handle_mouseup_calibrate);
+    // Touch events are basically the same as mouse click events, so just use the same callback functions
+    cal_content.addEventListener('touchstart', handle_mousedown_calibrate);
+    cal_content.addEventListener('touchend', handle_mouseup_calibrate);
+}
+
+function remove_cal_listeners() {
+    cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
+    cal_content.removeEventListener('mouseup', handle_mouseup_calibrate);
+    // Touch events are basically the same as mouse click events, so just use the same callback functions
+    cal_content.removeEventListener('touchstart', handle_mousedown_calibrate);
+    cal_content.removeEventListener('touchend', handle_mouseup_calibrate);
+}
+
 
 var ready_down = true;
 var t0;
@@ -153,8 +178,7 @@ function handle_mouseup_calibrate(e) {
         } else {
             if (calibrate_on) {
                 calibrate_on = false;
-                cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
-                cal_content.removeEventListener('mouseup', handle_mouseup_calibrate);
+                remove_cal_listeners();
             }
             dit = Math.round(average(dit_mean_list));
             dit_ind.innerHTML = dit;
