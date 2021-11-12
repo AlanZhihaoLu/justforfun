@@ -98,6 +98,10 @@
             .cal-letter-container {
                 display:none;
             }
+            input.dit-ind {
+                font-size: 3vh;
+                width: 3em;
+            }
         </style>
     </head>
     <body>
@@ -127,7 +131,7 @@
             <div class="cal-content modal-content">
                 <span id="close-cal" class="close">&times;</span>
                 <p><b>Calibrate</b></p>
-                <p>Calibrate timing. By default a "dit" is considered 150ms. <i>The current dit duration is set to <span id="dit-ind"></span>ms.</i></p>
+                <p>Calibrate timing. By default a "dit" is considered 150ms. <i>The current dit duration is set to <input type='number' value='150' class="dit-ind" style="font-style: italic;" max="999" min="10" onchange="handle_manual_cal()">ms.</i></p>
                 <p>To calibrate, press the start button and click, tap, or spacebar out the letters that appear below.</p>
                 <button class='start-cal' style="font-size:5vh;">start</button>
                 <div class="cal-letter-container">
@@ -197,10 +201,8 @@
         audioObj.volume = 0.2;
         var interpreted = document.querySelector('#interpreted');
         var ditdahs = document.querySelector('#ditdahs');
-        var dit_ind = document.querySelector('.modal .cal-content #dit-ind')
 
         var dit = 150;
-        dit_ind.innerHTML = dit;
         ditdahs.innerHTML = '';
         var onMobile = window.mobileAndTabletCheck();
         var audioReady = !onMobile;

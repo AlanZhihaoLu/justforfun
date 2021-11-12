@@ -3,6 +3,7 @@ var cal_content = document.body.querySelector('.cal-content');
 var close_cal = document.querySelector('#close-cal');
 var start_cal = document.querySelector('div.cal-content button.start-cal');
 var cal_letter_container = document.querySelector('div.cal-content div.cal-letter-container');
+var dit_ind = document.querySelector('div.cal-content input.dit-ind')
 
 var n_cal_letters;
 var visFeedback_list;
@@ -200,7 +201,7 @@ function handle_mouseup_calibrate(e) {
                 remove_cal_listeners();
             }
             dit = Math.round(average(dit_mean_list));
-            dit_ind.innerHTML = dit;
+            dit_ind.value = dit;
         }
     }
 }
@@ -247,7 +248,7 @@ function handle_keyup_calibrate(e) {
                 remove_cal_listeners();
             }
             dit = Math.round(average(dit_mean_list));
-            dit_ind.innerHTML = dit;
+            dit_ind.value = dit;
         }
     }
 }
@@ -264,3 +265,16 @@ function interpret_cal_doots(dootString, dootDurs) {
 
 // Helper function: takes the numerical average of an array
 var average = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
+
+// Handle manual change set in dit duration
+function handle_manual_cal() {
+    if (dit_ind.value > 999) {
+        alert('Manually specified dit duration is too high. Defaulting to max dit duration (999ms).')
+        dit_ind.value = 999;
+    }
+    if (dit_ind.value < 10) {
+        alert('Manually specified dit duration is too low. Defaulting to min dit duration (10ms).')
+        dit_ind.value = 10;
+    }
+    dit = dit_ind.value;
+}
