@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            What can people see?
+        </title>
+    </head>
+    <body>
+        <p class="info"></p>
+    </body>
+    <script>
+        var info_elem = document.querySelector('.info')
+        var downlink = '';
+        var effectiveType = '';
+        if (window.navigator.connection!==undefined) {
+            downlink = window.navigator.connection.downlink!==undefined ? `Effective bandwidth estimate in megabits per second, rounded to the nearest multiple of 25 kilobits per seconds: ${window.navigator.connection.downlink}<br>`:''
+            effectiveType = window.navigator.connection.effectiveType!==undefined ? `Effective type of the connection: ${window.navigator.connection.effectiveType}<br>`:''
+        }
+        var language = window.navigator.language!==undefined ? `Your preferred language: ${window.navigator.language}<br>`:''
+        var mobile;
+        if (window.navigator.userAgentData.mobile!==undefined) {
+            if (window.navigator.userAgentData.mobile) {
+                mobile = 'You are on mobile.'
+            } else {
+                mobile = 'You are not on mobile.'
+            }
+        } else {
+            mobile = '';
+        }
+        info_elem.innerHTML = downlink+effectiveType+language+mobile
+    </script>
+</html>
