@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>
-            What can people see?
+            Information Shared with All Websites
         </title>
     </head>
     <body>
@@ -10,23 +10,49 @@
     </body>
     <script>
         var info_elem = document.querySelector('.info')
+        var webdriver = ''
+        if (isdefined(window.navigator.webdriver)) {
+            if (window.navigator.webdriver) {
+                webdriver = `You are automated.<br>`
+            } else {
+                webdriver = `You are human.<br>`
+            }
+        }
         var downlink = '';
         var effectiveType = '';
-        if (window.navigator.connection!==undefined) {
-            downlink = window.navigator.connection.downlink!==undefined ? `Effective bandwidth estimate in megabits per second, rounded to the nearest multiple of 25 kilobits per seconds: ${window.navigator.connection.downlink}<br>`:''
-            effectiveType = window.navigator.connection.effectiveType!==undefined ? `Effective type of the connection: ${window.navigator.connection.effectiveType}<br>`:''
+        if (isdefined(window.navigator.connection)) {
+            downlink = isdefined(window.navigator.connection.downlink) ? `Your effective bandwidth estimate in megabits per second, rounded to the nearest multiple of 25 kilobits per seconds, is ${window.navigator.connection.downlink}Mbps.<br>`:''
+            effectiveType = isdefined(window.navigator.connection.effectiveType) ? `Your effective type of the connection is ${window.navigator.connection.effectiveType}.<br>`:''
         }
-        var language = window.navigator.language!==undefined ? `Your preferred language: ${window.navigator.language}<br>`:''
-        var mobile;
-        if (window.navigator.userAgentData.mobile!==undefined) {
-            if (window.navigator.userAgentData.mobile) {
-                mobile = 'You are on mobile.'
-            } else {
-                mobile = 'You are not on mobile.'
+        var language = isdefined(window.navigator.language) ? `Your preferred language is ${window.navigator.language}.<br>`:''
+        var mobile = '';
+        var brands = '';
+        var platform = '';
+        if (isdefined(window.navigator.userAgentData)) {
+            if (isdefined(window.navigator.userAgentData.mobile)) {
+                if (window.navigator.userAgentData.mobile) {
+                    mobile = 'You are currently on mobile.<br>'
+                } else {
+                    mobile = 'You are currently not on mobile.<br>'
+                }
+            } 
+            if (isdefined(window.navigator.userAgentData.brands)) {
+                brands = `Your current browser is ${window.navigator.userAgentData.brands[0].brand} v${window.navigator.userAgentData.brands[0].version}.<br>`
             }
-        } else {
-            mobile = '';
+            if (isdefined(window.navigator.userAgentData.platform)) {
+                platform = `You are currently on ${window.navigator.userAgentData.platform}.<br>`
+            }
         }
-        info_elem.innerHTML = downlink+effectiveType+language+mobile
+        var userAgent = isdefined(window.navigator.userAgent) ? `Your user agent string is ${window.navigator.userAgent}.<br>`:''
+
+        var deviceMemory = isdefined(navigator.deviceMemory) ? `Your current device has at least ${navigator.deviceMemory}gb of RAM.<br>`:''
+
+        var deviceMemory = isdefined(navigator.deviceMemory) ? `Your current device has at least ${navigator.deviceMemory}gb of RAM.<br>`:''
+
+        info_elem.innerHTML = webdriver+language+mobile+deviceMemory+platform+brands+effectiveType+downlink+userAgent
+
+        function isdefined(input) {
+            return input!==undefined
+        }
     </script>
 </html>

@@ -4,7 +4,7 @@ const path = require('path');
 const router = express.Router();
 
 // Specify file path relative to current directory
-const filepath = '/../morse'
+const filepath = '/../whoami'
 
 try {
     app.use(express.static(path.join(__dirname + filepath)))
