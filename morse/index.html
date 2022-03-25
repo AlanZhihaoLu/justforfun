@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <link rel="icon" href="3-horizontal-dots.svg" type="image/icon type">
@@ -106,6 +107,32 @@
                 overflow: scroll;
                 -webkit-overflow-scrolling: touch;
             }
+            /* Open Morse Transceiver*/
+            .open-morse-button {
+                border: none;
+                background-color: rgb(200,200,200); /* Black w/ opacity */
+                color: black;
+                padding-left: 5vw;
+                padding-right: 5vw;
+            }
+            /* Morse tap region */
+            .morse-transceiver {
+                height: 25vh;
+            }
+            .morse-tap {
+                border-radius: 5vh;
+                border: 0.5vw solid black;
+                height: 15vh;
+                width: 45vh;
+                display: flex;
+                justify-content: end;
+            }
+            .morse-light-ind {
+                border-radius: 50%;
+                border: 0.5vw solid black;
+                height: 7.5vh;
+                width: 7.5vh;
+            }
         </style>
     </head>
     <body>
@@ -151,7 +178,7 @@
                     <button class="help-button" style="font-size:5vh;">help</button>
                 </div>
             </div>
-            <div class="unselectable" style="display:flex;justify-content:center;align-items:center;height:25vh;font-size:10vh;">
+            <div class="unselectable" style="display:flex;justify-content:center;align-items:center;margin-top:2vh;margin-bottom:2vh;font-size:8vh;">
                 Morse Interpreter
             </div>
             <div>
@@ -162,11 +189,23 @@
                         <span id="cursor" style='position:relative;font-size:1.2em;top:0.05em;margin-left:-0.1em;'>|</span>
                     </span>
                 </div>
-                <div style="display:flex;justify-content:center;align-items:flex-end;height:20vh;">
-                    <button class="del-button unselectable" style="font-size:10vh;">delete</button>
+                <div style="display:flex;justify-content:center;align-items:flex-end;margin-top:2vh;">
+                    <button class="del-button unselectable" style="font-size:8vh;">delete</button>
                 </div>
             </div>
         </div>
+        <!-- <div>
+            <a href="practice.html">Practice!</a>
+        </div>
+        <div style="display:flex;justify-content:center;align-items:flex-end;position:fixed;bottom:-1vw;width:100%;z-index:2">
+            <button class="open-morse-button" style="font-size:3vw;">^</button>
+            <div class="morse-transceiver">
+                <div class="morse-tap">
+                    <div class="morse-light-ind">
+                    </div>
+                </div>
+            </div>
+        </div> -->
     </body>
     <script src="morse_dicts.js"></script>
     <script src="cursor_blink.js"></script>
@@ -294,7 +333,7 @@
                 interpreted.innerHTML = interpreted.innerHTML + morse_dict[ditdahs.innerHTML];
                 ditdahs.innerHTML = '';
             }
-            if (interpreted.innerHTML.length > 0) {
+            if (interpreted.innerHTML.length > 0 && !interpreted.innerHTML.endsWith(' ')) {
                 timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + ' '},dit*4);
             }
         }
