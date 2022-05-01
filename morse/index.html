@@ -6,136 +6,13 @@
             Morse Interpreter
         </title>
         <link rel="stylesheet" href="slider.css">
-        <style>
-            #main-app {
-                touch-action: manipulation;
-                -webkit-touch-callout: none;
-                /* -webkit-text-size-adjust: none; */
-                /* -webkit-user-select: none;    
-                user-select: none; */
-                height: 100%;
-                width: 100%;
-            }
-            button {
-                transition-duration: 0.4s;
-            }
-            .del-button:hover {
-                background-color: whitesmoke;
-                color: red;
-            }
-            button:hover {
-                background-color: black;
-                color: whitesmoke;
-            }
-            .unselectable {
-                -webkit-user-select: none; /* Safari */        
-                -moz-user-select: none; /* Firefox */
-                -ms-user-select: none; /* IE10+/Edge */
-                user-select: none; /* Standard */
-            }
-            .del-button {
-                border: 1vw solid red;
-                border-radius: 1vw;
-                background-color: red;
-                color: whitesmoke;
-                padding: 1vw;
-                cursor: pointer;
-            }
-            button {
-                border: 0.5vw solid black;
-                border-radius: 1vw;
-                background-color: whitesmoke;
-                color: black;
-                padding: 0.5vw;
-                cursor: pointer;
-            }
-            .inputarea {
-                border: 1vw solid black;
-                border-radius: 1vw;
-                overflow: auto;
-                resize: both;
-            }
-            .modal {
-                display: none; /* Hidden by default */
-                position: fixed; /* Stay in place */
-                z-index: 1; /* Sit on top */
-                left: 0;
-                top: 0;
-                width: 100%; /* Full width */
-                height: 100%; /* Full height */
-                overflow: auto; /* Enable scroll if needed */
-                background-color: rgb(0,0,0); /* Fallback color */
-                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-                touch-action: none;
-            }
-            .modal-content {
-                display: none;
-                background-color: #fefefe;
-                margin: 5% auto; /* 5% from the top and centered */
-                padding: 20px;
-                border: 1px solid #888;
-                width: 80%; /* Could be more or less, depending on screen size */
-                font-size: 3vh;
-            }
-            /* The Close Button */
-            .close {
-                color: #aaa;
-                float: right;
-                font-weight: bold;
-                font-size: 5vh;
-            }
-            .close:hover,
-            .close:focus {
-                color: black;
-                text-decoration: none;
-                cursor: pointer;
-            }
-            .visFeedback {
-                opacity:0.5;
-            }
-            .greatFeedback {
-                opacity:0;
-            }
-            .cal-letter-container {
-                display:none;
-            }
-            input.dit-ind {
-                font-size: 3vh;
-                width: 3em;
-            }
-            .help-content {
-                overflow: scroll;
-                -webkit-overflow-scrolling: touch;
-            }
-            /* Open Morse Transceiver*/
-            .open-morse-button {
-                border: none;
-                background-color: rgb(200,200,200); /* Black w/ opacity */
-                color: black;
-                padding-left: 5vw;
-                padding-right: 5vw;
-            }
-            /* Morse tap region */
-            .morse-transceiver {
-                height: 25vh;
-            }
-            .morse-tap {
-                border-radius: 5vh;
-                border: 0.5vw solid black;
-                height: 15vh;
-                width: 45vh;
-                display: flex;
-                justify-content: end;
-            }
-            .morse-light-ind {
-                border-radius: 50%;
-                border: 0.5vw solid black;
-                height: 7.5vh;
-                width: 7.5vh;
-            }
-        </style>
+        <link rel="stylesheet" href="main.css"> 
     </head>
     <body>
+        <!-- See: `getFullVh()` -->
+        <div style="overflow: hidden; height: 0">
+            <div id="measure-vh" style="position: fixed; height: 100vh"></div>
+        </div>
         <div id="modal" class="modal">
             <div class="help-content modal-content">
                 <span id="close-help" class="close">&times;</span>
@@ -170,7 +47,7 @@
                 </div>
             </div>  
         </div>
-        <div id="main-app">
+        <div id="main-container">
             <div class="unselectable" style="display:flex;justify-content:flex-end;">
                 <button class="cal-button" style="font-size:5vh;">calibrate</button>
                 <div style="margin-left:auto;">
@@ -190,22 +67,24 @@
                     </span>
                 </div>
                 <div style="display:flex;justify-content:center;align-items:flex-end;margin-top:2vh;">
+                    <button id="main-app" class="transmit-button unselectable" style="font-size:8vh;margin-right: 1vw;">transmit</button>
                     <button class="del-button unselectable" style="font-size:8vh;">delete</button>
                 </div>
             </div>
         </div>
         <!-- <div>
             <a href="practice.html">Practice!</a>
-        </div>
-        <div style="display:flex;justify-content:center;align-items:flex-end;position:fixed;bottom:-1vw;width:100%;z-index:2">
-            <button class="open-morse-button" style="font-size:3vw;">^</button>
+        </div> -->
+        <div class="morse-area" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;position:fixed;bottom:-26vh;width:100%;z-index:2">
+            <button class="open-morse-button" style="font-size:3vh;">^</button>
+            <div class="flex-break"></div>
             <div class="morse-transceiver">
                 <div class="morse-tap">
                     <div class="morse-light-ind">
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </body>
     <script src="morse_dicts.js"></script>
     <script src="cursor_blink.js"></script>
@@ -216,6 +95,20 @@
     <script src="options_button.js"></script>
     <script src="mobile_check.js"></script>
     <script>
+
+        const getFullVh = () => {
+        return document.querySelector('#measure-vh').clientHeight
+        }
+
+        var morse_area = document.querySelector('.morse-area');
+        morse_area.addEventListener('click', function(e) {
+            let vhs = morse_area.style.bottom.replace(/[^0-9]/g,'');
+            while (vhs > 0) {
+                vhs -= 0.5;
+                setTimeout(() => {morse_area.style.bottom = `-${vhs}vh`}, 50);
+            }
+        })
+
         var keypress_interpreter_inactive = false;
 
         var calibrate_on = false;
