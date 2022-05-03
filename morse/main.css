@@ -9,6 +9,12 @@
 }
 button {
     transition-duration: 0.4s;
+    border: 0.5vw solid black;
+    border-radius: 1vw;
+    background-color: whitesmoke;
+    color: black;
+    padding: 0.5vw;
+    cursor: pointer;
 }
 .del-button:hover {
     background-color: whitesmoke;
@@ -43,14 +49,6 @@ button:hover {
 .transmit-button:hover {
     background-color: whitesmoke;
     color: black;
-}
-button {
-    border: 0.5vw solid black;
-    border-radius: 1vw;
-    background-color: whitesmoke;
-    color: black;
-    padding: 0.5vw;
-    cursor: pointer;
 }
 .inputarea {
     border: 1vw solid black;
@@ -123,4 +121,28 @@ input.dit-ind {
     height: 6vh;
     width: 6vh;
     margin-top: 2vh;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+}
+
+button.stop-button {
+    border: 0.5vw solid red;
+    border-radius: 1vw;
+    background-color: red;
+    color: whitesmoke;
+    padding: 0.5vw;
+    cursor: pointer;
+}
+
+button.start-button {
+    color: whitesmoke;
+    background-color: black;
+}
+
+button.start-button:hover {
+    color: whitesmoke;
+    background-color: black;
 }
