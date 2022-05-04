@@ -22,22 +22,6 @@
             <button id="initiate_button" class='start-button' style="font-size:5vh;">start</button>
         </div>
     </body>
-    <script>
-        var initiate_button = document.getElementById("initiate_button");
-        var current_status = document.getElementById("current-status");
-        var playing = false;
-        initiate_button.addEventListener('click', function(e) {
-            if (playing) {
-                initiate_button.className = 'start-button';
-                initiate_button.innerText = 'start';
-                current_status.innerText = 'Waiting...';
-            } else {
-                initiate_button.className = 'stop-button';
-                initiate_button.innerText = 'stop';
-                current_status.innerText = 'Receiving...';
-            }
-            playing = !playing;
-        });
-        
-    </script>
+    <script src="morse_dicts.js"></script>
+    <script src="receive.js"></script>
 </html>

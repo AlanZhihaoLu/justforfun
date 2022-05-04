@@ -202,6 +202,7 @@ function handle_mouseup_calibrate(e) {
             }
             dit = Math.round(average(dit_mean_list));
             dit_ind.value = dit;
+            localStorage.setItem('dit', dit);
         }
     }
 }
@@ -277,4 +278,5 @@ function handle_manual_cal() {
         dit_ind.value = 10;
     }
     dit = dit_ind.value;
+    localStorage.setItem('dit', dit);
 }

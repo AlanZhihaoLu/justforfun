@@ -126,7 +126,14 @@
         var interpreted = document.querySelector('#interpreted');
         var ditdahs = document.querySelector('#ditdahs');
 
-        var dit = 150;
+        var dit;
+        if (localStorage.getItem('dit') === null) {
+            dit = 150;
+        } else {
+            dit = parseInt(localStorage.getItem('dit'));
+            dit_ind.value = dit;
+        }
+
         ditdahs.innerHTML = '';
         var onMobile = window.mobileAndTabletCheck();
         var audioReady = !onMobile;
