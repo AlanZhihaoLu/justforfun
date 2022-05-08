@@ -32,7 +32,13 @@ inputarea.addEventListener('keyup', function(e) {
 
 var input_sentence = "hello world"
 
-dit = parseInt(localStorage.getItem('dit'));
+var dit;
+if (localStorage.getItem('dit') === null) {
+    localStorage.setItem('dit', dit);
+    dit = 150;
+} else {
+    dit = parseInt(localStorage.getItem('dit'));
+}
 
 doot_dict = {
     '.': 1,
