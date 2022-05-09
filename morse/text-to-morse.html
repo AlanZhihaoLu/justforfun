@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="3-horizontal-dots.svg" type="image/icon type">
+        <title>
+            Receive
+        </title>
+        <link rel="stylesheet" href="main.css"> 
+    </head>
+    <body>
+        <div class="center-container" style="font-size:6vh;align-items:center;">
+            <span id="current-status">Waiting...</span>
+            <div class="center-container light-container" style="align-items:center;">
+                <div id="light" style="height:8vh;width:8vh;margin-top:0vh;">
+                </div>
+            </div>
+        </div>
+        <div class="center-container">
+            <input class="inputarea" type="text" style="padding:0.5em;width:80vw;font-size:3em;border:0.2vh solid black;" placeholder="translation...">
+        </div>
+        <div class="center-container" style="margin:4em;">
+            <button id="translate-button" style="font-size:5vh;">translate it!</button>
+        </div>
+    </body>
+    <script src="morse_dicts.js"></script>
+    <script src="text-to-morse.js"></script>
+</html>
