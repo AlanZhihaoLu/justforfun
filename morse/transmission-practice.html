@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="3-horizontal-dots.svg" type="image/icon type">
+        <title>
+            Transmission Practice
+        </title>
+        <link rel="stylesheet" href="slider.css">
+        <link rel="stylesheet" href="main.css"> 
+        <link rel="stylesheet" href="slider-round.css"> 
+    </head>
+    <body>
+        <div style="overflow: hidden; height: 0">
+            <div id="measure-vh" style="position: fixed; height: 100vh"></div>
+        </div>
+        <div id="modal" class="modal">
+            <div class="help-content modal-content">
+                <span id="close-help" class="close">&times;</span>
+                <p><b>What is this?</b></p>
+                <p>
+                    It translates morse code to letters. 
+                    Just click (if using mouse) or tap (if on mobile) out morse 
+                    code anywhere on the screen that's not occupied by buttons, 
+                    and what you tap out will be written out in the space below.
+                    Alternatively, if you have a keyboard, you can use the spacebar.
+                    By default a "dit" is considered 150ms. You can change this default
+                    by using the "calibrate" button.
+                </p>
+                <img src="International_Morse_Code.svg" alt="Morse Code Chart" style="display:block;margin-left:auto;margin-right:auto;width:50vw;">
+            </div>  
+            <div class="options-content modal-content">
+                <span id="close-options" class="close">&times;</span>
+                <p><b>Options</b></p>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider-round"></span>
+                </label>
+                <div class="volume-container">
+                    Audio Feedback Volume: <span id="volume-level">50</span>
+                    <br>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="volume-slider" onchange="change_volume()">
+                </div>
+            </div>  
+            <div class="cal-content modal-content">
+                <span id="close-cal" class="close">&times;</span>
+                <p><b>Calibrate</b></p>
+                <p>Calibrate timing. By default a "dit" is considered 150ms. <i>The current dit duration is set to <input type='number' value='150' class="dit-ind" style="font-style: italic;" max="999" min="10" onchange="handle_manual_cal()">ms.</i></p>
+                <p>To calibrate, press the start button and click, tap, or spacebar out the letters that appear below.</p>
+                <button class='start-cal' style="font-size:5vh;">start</button>
+                <div class="cal-letter-container">
+                </div>
+            </div>  
+        </div>
+        <div id="main-container">
+            <div class="unselectable" style="display:flex;justify-content:flex-end;">
+                <button class="cal-button" style="font-size:5vh;">calibrate</button>
+                <div style="margin-left:auto;">
+                    <button class="options-button" style="font-size:5vh;">options</button>
+                    <button class="help-button" style="font-size:5vh;">help</button>
+                </div>
+            </div>
+            <div class="center-container" style="align-items:flex-start;margin-top:3vh;margin-bottom:1vh;font-size:8vh;">
+                <div>
+                    Transmission Practice
+                </div>
+            </div>
+            <div class="center-container" style="margin:2vh;font-size:5vh;">
+                transmit: "<span id="target-words">test</span>"
+            </div>
+            <div id="doot-guide" class="center-container" style="margin:2vh;font-size:5vh;">
+            </div>
+            <div>
+                <div class="unselectable inputarea center-container" style="align-items:center;height:20vh;font-size:10vh;">
+                    <span style="margin-left:0.2em;margin-right:10vh;">
+                        <span id="interpreted" style='white-space:pre-wrap;'></span>
+                        <span id="ditdahs" style='opacity:0.5;margin-left:-0.1em;'></span>
+                        <span id="cursor" style='position:relative;font-size:1.2em;top:0.05em;margin-left:-0.1em;'>|</span>
+                    </span>
+                    <div class="light-container" style="position:absolute;right:0;">
+                        <div id="light">
+                        </div>
+                    </div>
+                </div>
+                <div class="center-container" style="align-items:flex-end;margin-top:2vh;">
+                    <button id="main-app" class="transmit-button unselectable" style="font-size:8vh;margin-right:1vh;">transmit</button>
+                    <button class="del-button unselectable" style="font-size:8vh;">delete</button>
+                </div>
+            </div>
+            <div id="give-feedback" class="modal">
+                <div class="center-container" style="height:100%;align-items:center;">
+                    <div id="give-feedback-content" class="modal-content" style="padding:6vh;height:6vh;width:35%;font-size:6vh;">
+                        Correct!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+    </body>
+    <script src="morse_dicts.js"></script>
+    <script src="cursor_blink.js"></script>
+    <script src="absorb_event.js"></script>
+    <script src="delete_button.js"></script>
+    <script src="calibrate_button.js"></script>
+    <script src="help_button.js"></script>
+    <script src="options_button.js"></script>
+    <script src="mobile_check.js"></script>
+    <script src="transmission-practice.js"></script>
+</html>
