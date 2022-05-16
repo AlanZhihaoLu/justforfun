@@ -143,6 +143,7 @@ function interpret_morse() {
         interpreted.innerHTML = interpreted.innerHTML + morse_dict[ditdahs.innerHTML];
         ditdahs.innerHTML = '';
         checkCorrectness()
+        initialize_doot_guide() 
     }
     if (interpreted.innerHTML.length > 0 && !interpreted.innerHTML.endsWith(' ') && !correct_answer) {
         timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + ' '},dit*4);
@@ -154,7 +155,7 @@ function checkCorrectness() {
         correct_answer = true;
         interpreted.innerHTML = interpreted.innerHTML.trim() 
         give_feedback();
-        setTimeout(reset_for_next_trial, 100000);
+        setTimeout(reset_for_next_trial, 800);
     }
 }
 
@@ -194,3 +195,22 @@ function remove_morse_listeners() {
 }
 
 add_morse_listeners()
+
+
+// Doot guide functions
+var doot_guide = document.getElementById('doot-guide');
+
+function initialize_doot_guide() {
+    var target_char_array = target_words.innerText.toLowerCase().split('')
+    var interpreted_char_array = interpreted.innerHTML.toLowerCase()
+    for (var i = 0; i < interpreted_char_array.length; i++) {
+        if (interpreted_char_array[i] !== target_char_array[i]) {
+            break;
+        }
+    }
+    if (alpha_dict[target_char_array[i]]===undefined) {
+        doot_guide.innerHTML = ''
+    } else {
+        doot_guide.innerHTML = target_char_array[i] + ': ' + alpha_dict[target_char_array[i]]
+    }
+}
