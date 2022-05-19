@@ -143,7 +143,11 @@ function interpret_morse() {
         interpreted.innerHTML = interpreted.innerHTML + morse_dict[ditdahs.innerHTML];
         ditdahs.innerHTML = '';
         checkCorrectness()
-        initialize_doot_guide() 
+        if (guide_on_status) {
+            initialize_doot_guide() 
+        } else {
+            doot_guide.innerHTML = '';
+        }
     }
     if (interpreted.innerHTML.length > 0 && !interpreted.innerHTML.endsWith(' ') && !correct_answer) {
         timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + ' '},dit*4);
@@ -214,3 +218,24 @@ function initialize_doot_guide() {
         doot_guide.innerHTML = target_char_array[i] + ': ' + alpha_dict[target_char_array[i]]
     }
 }
+
+var guide_on_container = document.getElementById('guide-on-container');
+var guide_on = document.getElementById('guide-on');
+var guide_on_status = guide_on.checked;
+
+guide_on_container.addEventListener('click', function(e) {
+    e.stopPropagation();
+    guide_on_status = !guide_on_status;
+    guide_on.checked = guide_on_status;
+    if (guide_on_status) {
+        initialize_doot_guide();
+    } else {
+        doot_guide.innerHTML = '';
+    }
+})
+
+if (guide_on.checked) {
+    initialize_doot_guide();
+} else {
+    doot_guide.innerHTML = '';
+};

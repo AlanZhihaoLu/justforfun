@@ -10,25 +10,25 @@ function change_volume() {
 }
 
 options_button.addEventListener('mousedown', function (e) {
-    e.stopPropagation();
+    // e.stopPropagation();
     modal.style.display = "block";
     options_content.style.display = "block";
 }, true)
 
 options_button.addEventListener('touchstart', function (e) {
-    e.stopPropagation();
+    // e.stopPropagation();
     modal.style.display = "block";
     options_content.style.display = "block";
 }, true)
 
 close_options.addEventListener('mouseup', function(e) {
-    e.stopPropagation();
+    // e.stopPropagation();
     options_content.style.display="none";
     modal.style.display="none";
 }, true)
 
 close_options.addEventListener('touchend', function(e) {
-    e.stopPropagation();
+    // e.stopPropagation();
     options_content.style.display="none";
     modal.style.display="none";
 }, true)

@@ -7,7 +7,6 @@
         </title>
         <link rel="stylesheet" href="slider.css">
         <link rel="stylesheet" href="main.css"> 
-        <link rel="stylesheet" href="slider-round.css"> 
     </head>
     <body>
         <div style="overflow: hidden; height: 0">
@@ -31,10 +30,10 @@
             <div class="options-content modal-content">
                 <span id="close-options" class="close">&times;</span>
                 <p><b>Options</b></p>
-                <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider-round"></span>
-                </label>
+                <div id="guide-on-container">
+                    <label for="guide-on">Guide</label>
+                    <input type="checkbox" id="guide-on" name="guide-on" checked>
+                </div>
                 <div class="volume-container">
                     Audio Feedback Volume: <span id="volume-level">50</span>
                     <br>
