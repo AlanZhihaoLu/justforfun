@@ -250,6 +250,7 @@ if (localStorage.getItem('guide_on') === null) {
 }
 
 delete_button.addEventListener('mousedown', function (e) {
-    initialize_doot_guide();
-    e.stopPropagation();
+    if (guide_on_status) {
+        initialize_doot_guide();
+    }
 })
