@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Draw
+        </title>
+    </head>
+    <body>
+        <canvas id="canvas" width="500" height="500" style="background-color:white;border:1px solid black;"></canvas>
+        <div>
+            <input type="color" class="drawing_color" value="#000000" onchange="changeDrawingColor()">
+            <input type="color" class="background_color" value="#FFFFFF" onchange="changeBackgroundColor()">
+            <input type="range" max="7" min="1" value="3" class="drawWidth" onchange="changeDrawWidth()">
+            <input type="radio" name="drawOrErase" value="draw" checked onchange="changetodraw()"><label for="draw">Draw</label>
+            <input type="radio" name="drawOrErase" value="erase" onchange="changetoerase()"><label for="erase">Erase</label>
+        </div>
+    </body>
+    <script src="draw.js"></script>
+</html>

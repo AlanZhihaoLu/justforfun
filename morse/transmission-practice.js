@@ -221,7 +221,6 @@ function initialize_doot_guide() {
 
 var guide_on_container = document.getElementById('guide-on-container');
 var guide_on = document.getElementById('guide-on');
-// var guide_on_status = guide_on.checked;
 
 guide_on_container.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -249,3 +248,8 @@ if (localStorage.getItem('guide_on') === null) {
         doot_guide.innerHTML = '';
     }
 }
+
+delete_button.addEventListener('mousedown', function (e) {
+    initialize_doot_guide();
+    e.stopPropagation();
+})

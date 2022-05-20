@@ -11,16 +11,16 @@ delete_button.addEventListener('mousedown', function (e) {
         }
     timeoutID = setTimeout(interpret_morse,dit*3);
     e.stopPropagation();
-}, true)
+})
 
 delete_button.addEventListener('mouseup', function (e) {
     e.stopPropagation();
-}, true)
+})
 
 delete_button.addEventListener('touchstart', function (e) {
     e.stopPropagation();
-}, true)
+})
 
 delete_button.addEventListener('touchend', function (e) {
     e.stopPropagation();
-}, true)
+})
