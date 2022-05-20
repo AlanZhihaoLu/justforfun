@@ -221,12 +221,13 @@ function initialize_doot_guide() {
 
 var guide_on_container = document.getElementById('guide-on-container');
 var guide_on = document.getElementById('guide-on');
-var guide_on_status = guide_on.checked;
+// var guide_on_status = guide_on.checked;
 
 guide_on_container.addEventListener('click', function(e) {
     e.stopPropagation();
     guide_on_status = !guide_on_status;
     guide_on.checked = guide_on_status;
+    localStorage.setItem('guide_on', guide_on_status);
     if (guide_on_status) {
         initialize_doot_guide();
     } else {
@@ -234,8 +235,17 @@ guide_on_container.addEventListener('click', function(e) {
     }
 })
 
-if (guide_on.checked) {
+if (localStorage.getItem('guide_on') === null) {
+    localStorage.setItem('guide_on', true);
+    guide_on_status = true;
+    guide_on.checked = guide_on_status;
     initialize_doot_guide();
 } else {
-    doot_guide.innerHTML = '';
-};
+    guide_on_status = localStorage.getItem('guide_on')==='true';
+    guide_on.checked = guide_on_status;
+    if (guide_on_status) {
+        initialize_doot_guide();
+    } else {
+        doot_guide.innerHTML = '';
+    }
+}
