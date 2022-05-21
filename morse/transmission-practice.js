@@ -150,7 +150,10 @@ function interpret_morse() {
         }
     }
     if (interpreted.innerHTML.length > 0 && !interpreted.innerHTML.endsWith(' ') && !correct_answer) {
-        timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + ' '},dit*4);
+        timeoutID = setTimeout(function(){
+            interpreted.innerHTML = interpreted.innerHTML + ' ';
+            initialize_doot_guide();
+        },dit*4);
     }
 }
 
@@ -174,6 +177,7 @@ function reset_for_next_trial() {
     add_morse_listeners();
     feedback.style.display = 'none';
     feedback_content.style.display = 'none';
+    correct_answer = false;
 }
 
 function add_morse_listeners() {
@@ -205,17 +209,25 @@ add_morse_listeners()
 var doot_guide = document.getElementById('doot-guide');
 
 function initialize_doot_guide() {
-    var target_char_array = target_words.innerText.toLowerCase().split('')
-    var interpreted_char_array = interpreted.innerHTML.toLowerCase()
-    for (var i = 0; i < interpreted_char_array.length; i++) {
-        if (interpreted_char_array[i] !== target_char_array[i]) {
-            break;
+    if (guide_on_status) {
+        var target_char_array = target_words.innerText.toLowerCase().split('')
+        var interpreted_char_array = interpreted.innerHTML.toLowerCase()
+        for (var i = 0; i < interpreted_char_array.length; i++) {
+            if (interpreted_char_array[i] !== target_char_array[i]) {
+                break;
+            }
         }
-    }
-    if (alpha_dict[target_char_array[i]]===undefined) {
-        doot_guide.innerHTML = ''
+        if (alpha_dict[target_char_array[i]]===undefined) {
+            if (target_char_array[i]===' ') {
+                doot_guide.innerHTML = '&nbsp';
+            } else {
+                doot_guide.innerHTML = '';
+            }
+        } else {
+            doot_guide.innerHTML = target_char_array[i] + ': ' + alpha_dict[target_char_array[i]]
+        }
     } else {
-        doot_guide.innerHTML = target_char_array[i] + ': ' + alpha_dict[target_char_array[i]]
+        doot_guide.innerHTML = '';
     }
 }
 
@@ -227,11 +239,7 @@ guide_on_container.addEventListener('click', function(e) {
     guide_on_status = !guide_on_status;
     guide_on.checked = guide_on_status;
     localStorage.setItem('guide_on', guide_on_status);
-    if (guide_on_status) {
-        initialize_doot_guide();
-    } else {
-        doot_guide.innerHTML = '';
-    }
+    initialize_doot_guide();
 })
 
 if (localStorage.getItem('guide_on') === null) {
@@ -242,15 +250,9 @@ if (localStorage.getItem('guide_on') === null) {
 } else {
     guide_on_status = localStorage.getItem('guide_on')==='true';
     guide_on.checked = guide_on_status;
-    if (guide_on_status) {
-        initialize_doot_guide();
-    } else {
-        doot_guide.innerHTML = '';
-    }
+    initialize_doot_guide();
 }
 
 delete_button.addEventListener('mousedown', function (e) {
-    if (guide_on_status) {
-        initialize_doot_guide();
-    }
+    initialize_doot_guide();
 })
