@@ -30,6 +30,11 @@ modal.addEventListener('click', function (e) {
 var app = document.getElementById("main-app");
 
 var target_words = document.getElementById("target-words");
+
+// Placeholder
+target_words.value = 'hello world';
+//
+
 var feedback = document.getElementById("give-feedback");
 var feedback_content = document.getElementById("give-feedback-content");
 
@@ -158,7 +163,7 @@ function interpret_morse() {
 }
 
 function checkCorrectness() {
-    if (interpreted.innerHTML.toLowerCase().trim() === target_words.innerText.toLowerCase()) {
+    if (interpreted.innerHTML.toLowerCase().trim() === target_words.value.toLowerCase()) {
         correct_answer = true;
         interpreted.innerHTML = interpreted.innerHTML.trim() 
         give_feedback();
@@ -210,21 +215,23 @@ var doot_guide = document.getElementById('doot-guide');
 
 function initialize_doot_guide() {
     if (guide_on_status) {
-        var target_char_array = target_words.innerText.toLowerCase().split('')
-        var interpreted_char_array = interpreted.innerHTML.toLowerCase()
-        for (var i = 0; i < interpreted_char_array.length; i++) {
-            if (interpreted_char_array[i] !== target_char_array[i]) {
-                break;
+        var target_char_array = target_words.value.toLowerCase().split('')
+        // If there are currently no transmission words in the input field
+        if (target_char_array.length === 0) {
+            doot_guide.innerHTML = '&nbsp';
+        // If there are transmission words in the input field
+        } else {
+            var interpreted_char_array = interpreted.innerHTML.toLowerCase()
+            for (var i = 0; i < interpreted_char_array.length; i++) {
+                if (interpreted_char_array[i] !== target_char_array[i]) {
+                    break;
+                }
             }
-        }
-        if (alpha_dict[target_char_array[i]]===undefined) {
-            if (target_char_array[i]===' ') {
+            if (alpha_dict[target_char_array[i]]===undefined) {
                 doot_guide.innerHTML = '&nbsp';
             } else {
-                doot_guide.innerHTML = '';
+                doot_guide.innerHTML = target_char_array[i] + ': ' + alpha_dict[target_char_array[i]]
             }
-        } else {
-            doot_guide.innerHTML = target_char_array[i] + ': ' + alpha_dict[target_char_array[i]]
         }
     } else {
         doot_guide.innerHTML = '';
@@ -254,5 +261,10 @@ if (localStorage.getItem('guide_on') === null) {
 }
 
 delete_button.addEventListener('mousedown', function (e) {
+    initialize_doot_guide();
+})
+
+target_words.addEventListener('input', function(e) {
+    console.log('h')
     initialize_doot_guide();
 })
