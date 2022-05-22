@@ -183,6 +183,7 @@ function reset_for_next_trial() {
     feedback.style.display = 'none';
     feedback_content.style.display = 'none';
     correct_answer = false;
+    target_words.value = '';
 }
 
 function add_morse_listeners() {
@@ -265,6 +266,15 @@ delete_button.addEventListener('mousedown', function (e) {
 })
 
 target_words.addEventListener('input', function(e) {
-    console.log('h')
     initialize_doot_guide();
+})
+
+target_words.addEventListener('focus', function(e) {
+    document.body.removeEventListener('keydown', handle_keydown)
+    document.body.removeEventListener('keyup', handle_keyup)
+})
+
+target_words.addEventListener('focusout', function(e) {
+    document.body.addEventListener('keydown', handle_keydown)
+    document.body.addEventListener('keyup', handle_keyup)
 })
