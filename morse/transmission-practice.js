@@ -237,7 +237,7 @@ function initialize_doot_guide() {
     } else {
         doot_guide.innerHTML = '';
     }
-}
+};
 
 var guide_on_container = document.getElementById('guide-on-container');
 var guide_on = document.getElementById('guide-on');
@@ -248,7 +248,7 @@ guide_on_container.addEventListener('click', function(e) {
     guide_on.checked = guide_on_status;
     localStorage.setItem('guide_on', guide_on_status);
     initialize_doot_guide();
-})
+});
 
 if (localStorage.getItem('guide_on') === null) {
     localStorage.setItem('guide_on', true);
@@ -259,22 +259,46 @@ if (localStorage.getItem('guide_on') === null) {
     guide_on_status = localStorage.getItem('guide_on')==='true';
     guide_on.checked = guide_on_status;
     initialize_doot_guide();
-}
+};
 
 delete_button.addEventListener('mousedown', function (e) {
     initialize_doot_guide();
-})
+});
 
 target_words.addEventListener('input', function(e) {
     initialize_doot_guide();
-})
+});
 
 target_words.addEventListener('focus', function(e) {
     document.body.removeEventListener('keydown', handle_keydown)
     document.body.removeEventListener('keyup', handle_keyup)
-})
+});
 
 target_words.addEventListener('focusout', function(e) {
     document.body.addEventListener('keydown', handle_keydown)
     document.body.addEventListener('keyup', handle_keyup)
-})
+});
+
+
+var randomize_button = document.getElementById('randomize-button');
+var words_list = ['hey there', 
+'welcome to', 
+'my website', 
+'as you', 
+'might have guessed', 
+'these words',
+'are not',
+'exactly random',
+'i am looking',
+'for a job',
+'let me know',
+'anyway',
+'the words',
+'are going to',
+'loop now'
+];
+randomize_button.addEventListener('click', function(e) {
+    target_words.value = words_list[0];
+    words_list.push(words_list.shift());
+    initialize_doot_guide();
+});
