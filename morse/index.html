@@ -20,7 +20,7 @@
                 <p>
                     It translates morse code to letters. 
                     Just click (if using mouse) or tap (if on mobile) out morse 
-                    code anywhere on the screen that's not occupied by buttons, 
+                    code using the 'transmit' button, 
                     and what you tap out will be written out in the space below.
                     Alternatively, if you have a keyboard, you can use the spacebar.
                     By default a "dit" is considered 150ms. You can change this default
@@ -40,9 +40,11 @@
             <div class="cal-content modal-content">
                 <span id="close-cal" class="close">&times;</span>
                 <p><b>Calibrate</b></p>
-                <p>Calibrate timing. By default a "dit" is considered 150ms. <i>The current dit duration is set to <input type='number' value='150' class="dit-ind" style="font-style: italic;" max="999" min="10" onchange="handle_manual_cal()">ms.</i></p>
-                <p>To calibrate, press the start button and click, tap, or spacebar out the letters that appear below.</p>
-                <button class='start-cal' style="font-size:5vh;">start</button>
+                <p>Calibrate timing. By default a "dit" is considered 150ms.</p>
+                <p><i>The current dit duration is set to <input type='number' value='150' class="dit-ind" style="font-style: italic;" max="999" min="10" onchange="handle_manual_cal()">ms.</i></p>
+                <p>For manual calibration, specify your preferred dit duration in the above box.</p>
+                <p>For automatic calibration, press the start button and transmit the letters that appear below, and the program will automatically determine the best dit duration for you.</p>
+                <button class='start-cal' style="font-size:5vh;">start</button><button id="cal-transmit" class="unselectable" style="margin-left:0.5vw;font-size:5vh">transmit</button>
                 <div class="cal-letter-container">
                 </div>
             </div>  
@@ -110,6 +112,9 @@
                 options_content.style.display = "none";
                 cal_content.style.display = "none";
                 modal.style.display = "none";
+                // Reset automatic calibration
+                cal_letter_container.innerHTML = '';
+                start_cal.innerHTML = 'start';
                 if (calibrate_on) {
                     calibrate_on = false;
                     remove_cal_listeners();

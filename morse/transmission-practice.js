@@ -16,6 +16,9 @@ modal.addEventListener('click', function (e) {
         options_content.style.display = "none";
         cal_content.style.display = "none";
         modal.style.display = "none";
+        // Reset automatic calibration
+        cal_letter_container.innerHTML = '';
+        start_cal.innerHTML = 'start';
         if (calibrate_on) {
             calibrate_on = false;
             remove_cal_listeners();

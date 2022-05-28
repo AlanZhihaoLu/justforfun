@@ -1,9 +1,10 @@
 var cal_button = document.body.querySelector('.cal-button');
 var cal_content = document.body.querySelector('.cal-content');
-var close_cal = document.querySelector('#close-cal');
-var start_cal = document.querySelector('div.cal-content button.start-cal');
-var cal_letter_container = document.querySelector('div.cal-content div.cal-letter-container');
-var dit_ind = document.querySelector('div.cal-content input.dit-ind')
+var close_cal = document.body.querySelector('#close-cal');
+var start_cal = document.body.querySelector('div.cal-content button.start-cal');
+var cal_letter_container = document.body.querySelector('div.cal-content div.cal-letter-container');
+var dit_ind = document.body.querySelector('div.cal-content input.dit-ind');
+var cal_transmit = document.getElementById('cal-transmit');
 
 var n_cal_letters;
 var visFeedback_list;
@@ -54,6 +55,8 @@ function handle_close_cal(e) {
     e.stopPropagation();
     cal_content.style.display="none";
     modal.style.display="none";
+    cal_letter_container.innerHTML = '';
+    start_cal.innerHTML = 'start';
     if (calibrate_on) {
         calibrate_on = false;
         remove_cal_listeners();
@@ -66,22 +69,22 @@ function handle_close_cal(e) {
 // Calibration mode listeners (see handle_mousedown_calibrate, handle_mouseup_calibrate)
 // Adds listeners
 function add_cal_listeners() {
-    cal_content.addEventListener('mousedown', handle_mousedown_calibrate);
-    cal_content.addEventListener('mouseup', handle_mouseup_calibrate);
+    cal_transmit.addEventListener('mousedown', handle_mousedown_calibrate);
+    cal_transmit.addEventListener('mouseup', handle_mouseup_calibrate);
     // Touch events are basically the same as mouse click events, so just use the same callback functions
-    cal_content.addEventListener('touchstart', handle_mousedown_calibrate);
-    cal_content.addEventListener('touchend', handle_mouseup_calibrate);
+    cal_transmit.addEventListener('touchstart', handle_mousedown_calibrate);
+    cal_transmit.addEventListener('touchend', handle_mouseup_calibrate);
     // Calibration keypress listeners
     document.body.addEventListener('keydown', handle_keydown_calibrate)
     document.body.addEventListener('keyup', handle_keyup_calibrate);
 }
 // Removes listeners
 function remove_cal_listeners() {
-    cal_content.removeEventListener('mousedown', handle_mousedown_calibrate);
-    cal_content.removeEventListener('mouseup', handle_mouseup_calibrate);
+    cal_transmit.removeEventListener('mousedown', handle_mousedown_calibrate);
+    cal_transmit.removeEventListener('mouseup', handle_mouseup_calibrate);
     // Touch events are basically the same as mouse click events, so just use the same callback functions
-    cal_content.removeEventListener('touchstart', handle_mousedown_calibrate);
-    cal_content.removeEventListener('touchend', handle_mouseup_calibrate);
+    cal_transmit.removeEventListener('touchstart', handle_mousedown_calibrate);
+    cal_transmit.removeEventListener('touchend', handle_mouseup_calibrate);
     // Calibration keypress listeners
     document.body.removeEventListener('keydown', handle_keydown_calibrate)
     document.body.removeEventListener('keyup', handle_keyup_calibrate);
