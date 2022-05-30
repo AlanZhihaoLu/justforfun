@@ -9,11 +9,11 @@
 }
 button {
     transition-duration: 0.4s;
-    border: 0.5vw solid black;
-    border-radius: 1vw;
+    border: 0.3rem solid black;
+    border-radius: 1rem;
     background-color: whitesmoke;
     color: black;
-    padding: 0.5vw;
+    padding: 0.5rem;
     cursor: pointer;
 }
 .del-button:hover {
@@ -33,19 +33,17 @@ button:hover {
     -webkit-touch-callout: none;
 }
 .del-button {
-    border: 1vh solid red;
-    border-radius: 1vh;
+    border: 0.3rem solid red;
+    border-radius: 1rem;
     background-color: red;
     color: whitesmoke;
-    padding: 1vh;
+    padding: 1rem;
     cursor: pointer;
 }
 .transmit-button {
-    border: 1vh solid black;
-    border-radius: 1vh;
     background-color: black;
     color: whitesmoke;
-    padding: 1vh;
+    padding: 1rem;
     cursor: pointer;
 }
 .transmit-button:hover {
@@ -112,17 +110,17 @@ input.dit-ind {
 }
 
 .light-container {
-    height: 20vh;
-    width: 10vh;
-    margin: 1vh;
+    height: 10rem;
+    width: 5rem;
+    margin: 1rem;
 }
 
 #light {
-    border: 0.2vh solid black;
+    border: 0.2rem solid black;
     border-radius: 50%;
-    height: 6vh;
-    width: 6vh;
-    margin-top: 2vh;
+    height: 3rem;
+    width: 3rem;
+    margin-top: 1rem;
 }
 
 .center-container {
