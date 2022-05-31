@@ -1,3 +1,7 @@
+body {
+    margin:0.5rem;
+}
+
 #main-app {
     touch-action: manipulation;
     -webkit-touch-callout: none;
