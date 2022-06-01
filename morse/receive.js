@@ -10,6 +10,7 @@ initiate_button.addEventListener('click', function(e) {
         initiate_button.className = 'start-button';
         initiate_button.innerText = 'start';
         current_status.innerText = 'Waiting...';
+        active_signal(false);
         clearTimeout(timeoutID);
     } else {
         initiate_button.className = 'stop-button';
