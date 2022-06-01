@@ -5,8 +5,11 @@
         <title>
             Transmission Practice
         </title>
-        <link rel="stylesheet" href="slider.css">
-        <link rel="stylesheet" href="main.css"> 
+        <link rel="stylesheet" href="css/slider.css">
+        <link rel="stylesheet" href="css/main.css"> 
+        <link rel="stylesheet" href="css/modal.css"> 
+        <link rel="stylesheet" href="css/buttons.css"> 
+        <link rel="stylesheet" href="css/utils.css"> 
     </head>
     <body>
         <div style="overflow: hidden; height: 0">
@@ -31,7 +34,7 @@
                 <span id="close-options" class="close">&times;</span>
                 <p><b>Options</b></p>
                 <div id="guide-on-container">
-                    <label for="guide-on">Guide</label>
+                    <label for="guide-on">Dit Guide</label>
                     <input type="checkbox" id="guide-on" name="guide-on" checked>
                 </div>
                 <div class="volume-container">
@@ -47,20 +50,20 @@
                 <p><i>The current dit duration is set to <input type='number' value='150' class="dit-ind" style="font-style: italic;" max="999" min="10" onchange="handle_manual_cal()">ms.</i></p>
                 <p>For manual calibration, specify your preferred dit duration in the above box.</p>
                 <p>For automatic calibration, press the start button and transmit the letters that appear below, and the program will automatically determine the best dit duration for you.</p>
-                <button class='start-cal' style="font-size:5vh;">start</button><button id="cal-transmit" class="unselectable" style="margin-left:0.5vw;font-size:5vh">transmit</button>
+                <button class='start-cal' style="font-size:2.5rem;">start</button><button id="cal-transmit" class="unselectable" style="margin-left:0.5rem;font-size:2.5rem;">transmit</button>
                 <div class="cal-letter-container">
                 </div>
             </div>  
         </div>
         <div id="main-container">
             <div class="unselectable" style="display:flex;justify-content:flex-end;">
-                <button class="cal-button" style="font-size:3.5rem;">calibrate</button>
+                <button class="cal-button">calibrate</button>
                 <div style="margin-left:auto;">
-                    <button class="options-button" style="font-size:3.5rem;">options</button>
-                    <button class="help-button" style="font-size:3.5rem;">help</button>
+                    <button class="options-button">options</button>
+                    <button class="help-button">help</button>
                 </div>
             </div>
-            <div class="center-container" style="align-items:flex-start;margin-top:2rem;margin-bottom:1rem;font-size:5rem;">
+            <div class="center-container page-title">
                 Transmission Practice
             </div>
             <div class="center-container" style="margin-top:2rem;margin-top:2rem;font-size:4rem;height:4rem;">
@@ -70,11 +73,11 @@
             <div id="doot-guide" class="center-container" style="margin:2rem;font-size:3.5rem;">
             </div>
             <div>
-                <div class="unselectable inputarea center-container" style="align-items:center;height:10rem;font-size:5rem;">
+                <div class="unselectable inputarea center-container">
                     <span style="margin-left:0.2em;margin-right:7rem;">
                         <span id="interpreted" style='white-space:pre-wrap;'></span>
-                        <span id="ditdahs" style='opacity:0.5;margin-left:-0.1em;'></span>
-                        <span id="cursor" style='position:relative;font-size:1.2em;top:0.05em;margin-left:-0.1em;'>|</span>
+                        <span id="ditdahs"></span>
+                        <span id="cursor">|</span>
                     </span>
                     <div class="light-container" style="position:absolute;right:0;">
                         <div id="light">
@@ -82,8 +85,8 @@
                     </div>
                 </div>
                 <div class="center-container" style="align-items:flex-end;margin-top:1.5rem;">
-                    <button id="main-app" class="transmit-button unselectable" style="font-size:4.5rem;margin-right:0.5rem;">transmit</button>
-                    <button class="del-button unselectable" style="font-size:4.5rem;">delete</button>
+                    <button id="main-app" class="transmit-button unselectable" style="margin-right:0.5rem;">transmit</button>
+                    <button class="del-button unselectable">delete</button>
                 </div>
             </div>
             <div id="give-feedback" class="modal">

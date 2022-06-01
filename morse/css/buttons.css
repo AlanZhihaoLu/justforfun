@@ -1,0 +1,64 @@
+/* modal.css: CSS for all button elements */
+
+/* General Buttons */
+button {
+    transition-duration: 0.4s;
+    border: 0.3rem solid black;
+    border-radius: 1rem;
+    background-color: whitesmoke;
+    color: black;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-size: 3.5rem;
+}
+button:hover {
+    background-color: black;
+    color: whitesmoke;
+}
+
+/* Delete Buttons */
+.del-button {
+    border: 0.3rem solid red;
+    border-radius: 1rem;
+    background-color: red;
+    color: whitesmoke;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 4.5rem;
+}
+.del-button:hover {
+    background-color: whitesmoke;
+    color: red;
+}
+
+/* Transmit Buttons */
+.transmit-button {
+    background-color: black;
+    color: whitesmoke;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 4.5rem;
+}
+.transmit-button:hover {
+    background-color: whitesmoke;
+    color: black;
+}
+
+/* Receiver Buttons */
+button.stop-button {
+    border: 0.5vw solid red;
+    border-radius: 1vw;
+    background-color: red;
+    color: whitesmoke;
+    padding: 0.5vw;
+    cursor: pointer;
+}
+
+button.start-button {
+    color: whitesmoke;
+    background-color: black;
+}
+button.start-button:hover {
+    color: whitesmoke;
+    background-color: black;
+}

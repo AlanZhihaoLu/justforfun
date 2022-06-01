@@ -1,0 +1,53 @@
+/* main.css: CSS for main elements */
+
+/* Styling */
+body {
+    margin:0.5rem;
+}
+.page-title {
+    align-items: flex-start;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 5rem;
+}
+
+/* This is the morse-responsive element (e.g., the transmit button) */
+#main-app {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+}
+
+/* Input Area CSS */
+.inputarea {
+    border: 0.2rem solid black;
+    border-radius: 1rem;
+    overflow: auto;
+    resize: both;
+    align-items: center;
+    height: 10rem;
+    font-size: 5rem;
+}
+#ditdahs {
+    opacity: 0.5;
+    margin-left: -0.1em;
+}
+#cursor {
+    position: relative;
+    font-size: 1.2em;
+    top: 0.05em;
+    margin-left: -0.1em;
+}
+
+/* Visual Feedback (Light Indicator) */
+.light-container {
+    height: 10rem;
+    width: 5rem;
+    margin: 1rem;
+}
+#light {
+    border: 0.2rem solid black;
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    margin-top: 1rem;
+}

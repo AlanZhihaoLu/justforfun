@@ -5,21 +5,38 @@
         <title>
             Receive
         </title>
-        <link rel="stylesheet" href="main.css"> 
+        <link rel="stylesheet" href="css/main.css"> 
+        <link rel="stylesheet" href="css/buttons.css"> 
+        <link rel="stylesheet" href="css/utils.css"> 
     </head>
     <body>
-        <div class="center-container" style="font-size:6vh;align-items:center;">
+        <div class="center-container page-title">
+            Receiver Practice
+        </div>
+        <div class="center-container" style="font-size:4rem;align-items:center;">
             <span id="current-status">Waiting...</span>
             <div class="center-container light-container" style="align-items:center;">
-                <div id="light" style="height:8vh;width:8vh;margin-top:0vh;">
+                <div id="light" style="height:4rem;width:4rem;margin-top:0;">
                 </div>
             </div>
         </div>
         <div class="center-container">
-            <input class="inputarea" type="text" style="padding:0.5em;width:80vw;font-size:3em;border:0.2vh solid black;" placeholder="translation...">
+            <input class="inputarea" type="text" style="padding-left:1rem;padding-right:1rem;width:80%;font-size:3rem;border:0.2rem solid black;" placeholder="translation...">
         </div>
         <div class="center-container" style="margin:4em;">
-            <button id="initiate_button" class='start-button' style="font-size:5vh;">start</button>
+            <button id="initiate_button" class='start-button'>start</button>
+        </div>
+        <div>
+            Translator functions
+            <ul>
+                <li><a href="index.html">morse-to-text</a></li>
+                <li><a href="text-to-morse.html">text-to-morse</a></li>
+            </ul>
+            Practice it yourself!
+            <ul>
+                <li><a href="receiver-practice.html">receiver practice</a></li>
+                <li><a href="transmission-practice.html">transmitter practice</a></li>
+            </ul>
         </div>
     </body>
     <script src="morse_dicts.js"></script>
