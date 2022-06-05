@@ -4,8 +4,6 @@ const getFullVh = () => {
 
 var keypress_interpreter_inactive = false;
 
-var calibrate_on = false;
-
 var correct_answer = false;
 
 var modal = document.getElementById("modal");

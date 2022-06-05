@@ -17,6 +17,8 @@ var dur_list;
 var dit_mean_list;
 var cal_letters;
 
+var calibrate_on = false;
+
 // Removes keypress event listeners to prevent default action, displays modal (see handle_cal_button)
 // Mouse click
 cal_button.addEventListener('mousedown', handle_cal_button, true)

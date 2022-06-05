@@ -5,23 +5,74 @@
         <title>
             Text-to-Morse
         </title>
+        <link rel="stylesheet" href="css/slider.css">
         <link rel="stylesheet" href="css/main.css"> 
+        <link rel="stylesheet" href="css/modal.css"> 
         <link rel="stylesheet" href="css/buttons.css"> 
         <link rel="stylesheet" href="css/utils.css"> 
     </head>
     <body>
+        <div id="modal" class="modal">
+            <div class="help-content modal-content">
+                <span id="close-help" class="close">&times;</span>
+                <p><b>What is this?</b></p>
+                <p>
+                    It translates morse code to letters. 
+                    Just click (if using mouse) or tap (if on mobile) out morse 
+                    code using the 'transmit' button, 
+                    and what you tap out will be written out in the space below.
+                    Alternatively, if you have a keyboard, you can use the spacebar.
+                    By default a "dit" is considered 150ms. You can change this default
+                    by using the "calibrate" button.
+                </p>
+                <img src="International_Morse_Code.svg" alt="Morse Code Chart" style="display:block;margin-left:auto;margin-right:auto;width:50vw;">
+            </div>  
+            <div class="options-content modal-content">
+                <span id="close-options" class="close">&times;</span>
+                <p><b>Options</b></p>
+                <div class="volume-container">
+                    Audio Feedback Volume: <span id="volume-level">50</span>
+                    <br>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="volume-slider" onchange="change_volume()">
+                </div>
+            </div>  
+            <div class="cal-content modal-content">
+                <span id="close-cal" class="close">&times;</span>
+                <p><b>Calibrate</b></p>
+                <p>Calibrate timing. By default a "dit" is considered 150ms.</p>
+                <p><i>The current dit duration is set to <input type='number' value='150' class="dit-ind" style="font-style: italic;" max="999" min="10" onchange="handle_manual_cal()">ms.</i></p>
+                <p>For manual calibration, specify your preferred dit duration in the above box.</p>
+                <p>For automatic calibration, press the start button and transmit the letters that appear below, and the program will automatically determine the best dit duration for you.</p>
+                <button class='start-cal' style="font-size:2.5rem;">start</button><button id="cal-transmit" class="unselectable" style="margin-left:0.5rem;font-size:2.5rem;">transmit</button>
+                <div class="cal-letter-container">
+                </div>
+            </div>  
+        </div>
+        <div class="unselectable" style="display:flex;justify-content:flex-end;">
+            <button class="cal-button">calibrate</button>
+            <div style="margin-left:auto;">
+                <button class="options-button">options</button>
+                <button class="help-button">help</button>
+            </div>
+        </div>
         <div class="center-container page-title">
             Text-to-Morse
         </div>
-        <div class="center-container" style="font-size:4rem;align-items:center;">
+        <div class="center-container" style="font-size:4rem;height:5rem;align-items:center;">
             <span id="current-status">Waiting...</span>
             <div class="center-container light-container" style="align-items:center;">
                 <div id="light" style="height:4rem;width:4rem;margin-top:0;">
                 </div>
             </div>
         </div>
+        <div class="center-container" style="font-size:4rem;margin-bottom:0.5rem;align-items:center;">
+            <div style="display:flex;justify-content:left;">
+                <span id="all-doots" style="opacity:0.25;"></span>
+                <span id="translated-doots" style="position:absolute;opacity:0.75;"></span>
+            </div>
+        </div>
         <div class="center-container">
-            <input class="inputarea" type="text" style="padding-left:1rem;padding-right:1rem;width:80%;font-size:3rem;border:0.2rem solid black;" placeholder="translation...">
+            <input class="inputarea" type="text" style="padding-left:1rem;padding-right:1rem;width:80%;font-size:3rem;border:0.2rem solid black;" placeholder="enter text here">
         </div>
         <div class="center-container" style="margin:4em;">
             <button id="translate-button">translate it!</button>
@@ -40,5 +91,47 @@
         </div>
     </body>
     <script src="morse_dicts.js"></script>
+    <script src="absorb_event.js"></script>
+    <script src="calibrate_button.js"></script>
+    <script src="help_button.js"></script>
+    <script src="options_button.js"></script>
+    <script src="mobile_check.js"></script>
     <script src="text-to-morse.js"></script>
+    <script>
+        var audioObj = new Audio('440Hz.mp3');
+        audioObj.volume = 0.2;
+        var onMobile = window.mobileAndTabletCheck();
+        var audioReady = !onMobile;
+
+        var modal = document.getElementById("modal");
+        modal.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (e.target === modal) {
+                help_content.style.display = "none";
+                options_content.style.display = "none";
+                cal_content.style.display = "none";
+                modal.style.display = "none";
+                // Reset automatic calibration
+                cal_letter_container.innerHTML = '';
+                start_cal.innerHTML = 'start';
+                if (calibrate_on) {
+                    calibrate_on = false;
+                    remove_cal_listeners();
+                }
+                if (keypress_interpreter_inactive) {
+                    document.body.addEventListener('keydown', handle_keydown)
+                    document.body.addEventListener('keyup', handle_keyup)
+                }
+            }
+        })
+
+        var dit;
+        if (localStorage.getItem('dit') === null) {
+            localStorage.setItem('dit', dit);
+            dit = 150;
+        } else {
+            dit = parseInt(localStorage.getItem('dit'));
+            dit_ind.value = dit;
+        }
+    </script>
 </html>
