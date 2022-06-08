@@ -138,3 +138,36 @@ function handle_keydown() {
 
 function handle_keyup() {
 }
+
+var guide_on_container = document.getElementById('guide-on-container');
+var guide_on = document.getElementById('guide-on');
+
+guide_on_container.addEventListener('click', function(e) {
+    e.stopPropagation();
+    guide_on_status = !guide_on_status;
+    guide_on.checked = guide_on_status;
+    localStorage.setItem('ttm_guide_on', guide_on_status);
+    toggle_doot_guide(guide_on_status);
+});
+
+if (localStorage.getItem('ttm_guide_on') === null) {
+    localStorage.setItem('ttm_guide_on', true);
+    guide_on_status = true;
+    guide_on.checked = guide_on_status;
+    toggle_doot_guide(guide_on_status);
+} else {
+    guide_on_status = localStorage.getItem('ttm_guide_on')==='true';
+    guide_on.checked = guide_on_status;
+    toggle_doot_guide(guide_on_status);
+};
+
+var doot_guide_container = document.getElementById('doot-guide-container');
+
+function toggle_doot_guide(turnOn) {
+    var doot_guide_container = document.getElementById('doot-guide-container');
+    if (turnOn) {
+        doot_guide_container.style.display = "flex";
+    } else {
+        doot_guide_container.style.display = "none";
+    }
+}

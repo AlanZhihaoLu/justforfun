@@ -30,6 +30,10 @@
             <div class="options-content modal-content">
                 <span id="close-options" class="close">&times;</span>
                 <p><b>Options</b></p>
+                <div id="guide-on-container">
+                    <label for="guide-on">Dit Guide</label>
+                    <input type="checkbox" id="guide-on" name="guide-on" checked>
+                </div>
                 <div class="volume-container">
                     Audio Feedback Volume: <span id="volume-level">50</span>
                     <br>
@@ -65,13 +69,13 @@
                 </div>
             </div>
         </div>
-        <div class="center-container" style="font-size:4rem;margin-bottom:0.5rem;align-items:center;">
+        <div id="doot-guide-container" class="center-container" style="font-size:4rem;align-items:center;display:block;">
             <div style="display:flex;justify-content:left;">
                 <span id="all-doots" style="opacity:0.25;"></span>
                 <span id="translated-doots" style="position:absolute;opacity:0.75;"></span>
             </div>
         </div>
-        <div class="center-container">
+        <div class="center-container" style="margin-top:0.5rem;">
             <input class="inputarea" type="text" style="padding-left:1rem;padding-right:1rem;width:80%;font-size:3rem;border:0.2rem solid black;" placeholder="enter text here">
         </div>
         <div class="center-container" style="margin:4em;">
