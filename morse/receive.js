@@ -46,6 +46,31 @@ doot_dict = {
     '-': 3
 }
 
+function convert2morse(input_sentence) {
+    var output = {};
+    output.string_form = '';
+    output.array_form = [];
+    for (letter of input_sentence) {
+        if (letter in alpha_dict) {
+            for (doot of alpha_dict[letter]) {
+                output.string_form += doot
+                output.array_form.push(doot)
+                output.array_form.push('')
+            }
+            output.string_form += ' '
+            output.array_form[output.array_form.length-1] = ' '
+        } else if (letter === ' ') {
+            output.string_form += '/ '
+            output.array_form[output.array_form.length-1] = ' / '
+        } else if (letter === '.') {
+            output.string_form += '// '
+            output.array_form[output.array_form.length-1] = ' // '
+        }
+    }
+    output.array_form.reverse();
+    return output
+}
+
 function convert2signal(input_sentence) {
     var output = [];
     var last = -99;
@@ -58,19 +83,20 @@ function convert2signal(input_sentence) {
                 last = doot_dict[doot];
                 output.push(last);
             }
+            last = -3;
+            output.push(-3);
         } else if (letter === ' ') {
-            if (last > -3) {
-                last = -3;
-                output.push(-3);
-            }
-        } else if (letter === '.') {
             if (last > -7) {
                 last = -7;
-                output.push(-7);
+                output[output.length-1] = -7;
+            }
+        } else if (letter === '.') {
+            if (last > -10) {
+                last = -10;
+                output[output.length-1] = -10;
             }
         }
     } 
-    output.push(-1) // Inactivate signal
     output = output.reverse()
     return output
 }
