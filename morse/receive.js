@@ -2,6 +2,7 @@ var initiate_button = document.getElementById("initiate_button");
 var current_status = document.getElementById("current-status");
 var inputarea = document.querySelector("input.inputarea");
 
+var trial_started = false;
 var playing = false;
 var timeoutID;
 
@@ -16,15 +17,18 @@ initiate_button.addEventListener('click', function(e) {
         initiate_button.className = 'stop-button';
         initiate_button.innerText = 'stop';
         current_status.innerText = 'Receiving...';
+        trial_started = true;
         transmit(convert2signal(input_sentence))
     }
     playing = !playing;
 });
 
 inputarea.addEventListener('keyup', function(e) {
-    if (inputarea.value.toLowerCase() === input_sentence) {
-        give_feedback();
-        setTimeout(reset_for_next_trial, 800);
+    if (trial_started) {
+        if (inputarea.value.toLowerCase() === input_sentence) {
+            give_feedback();
+            setTimeout(reset_for_next_trial, 800);
+        }
     }
 })
 
@@ -138,7 +142,13 @@ function give_feedback() {
 
 // Reset
 function reset_for_next_trial() {
+    initiate_button.className = 'start-button';
+    initiate_button.innerText = 'start';
+    current_status.innerText = 'Waiting...';
+    active_signal(false);
+    clearTimeout(timeoutID);
     inputarea.value = '';
     feedback.style.display = 'none';
     feedback_content.style.display = 'none';
+    trial_started = false;
 }
