@@ -22,10 +22,9 @@ initiate_button.addEventListener('click', function(e) {
 });
 
 inputarea.addEventListener('keyup', function(e) {
-    console.log(inputarea.value)
     if (inputarea.value.toLowerCase() === input_sentence) {
-        console.log("CORRECT")
-        inputarea.value = '';
+        give_feedback();
+        setTimeout(reset_for_next_trial, 800);
     }
 })
 
@@ -126,4 +125,20 @@ function active_signal(turnOn) {
     } else {
         light.style.backgroundColor = 'white';
     }
+}
+
+// Feedback Modal 
+var feedback = document.getElementById("give-feedback");
+var feedback_content = document.getElementById("give-feedback-content");
+
+function give_feedback() {
+    feedback.style.display = 'block';
+    feedback_content.style.display = 'block';
+}
+
+// Reset
+function reset_for_next_trial() {
+    inputarea.value = '';
+    feedback.style.display = 'none';
+    feedback_content.style.display = 'none';
 }
