@@ -1,33 +1,9 @@
-var keypress_interpreter_inactive = false;
-
-var modal = document.getElementById("modal");
-modal.addEventListener('click', function (e) {
-    e.preventDefault();
-    if (e.target === modal) {
-        help_content.style.display = "none";
-        options_content.style.display = "none";
-        cal_content.style.display = "none";
-        modal.style.display = "none";
-        // Reset automatic calibration
-        cal_letter_container.innerHTML = '';
-        start_cal.innerHTML = 'start';
-        if (calibrate_on) {
-            calibrate_on = false;
-            remove_cal_listeners();
-        }
-        if (keypress_interpreter_inactive) {
-            document.body.addEventListener('keydown', handle_keydown)
-            document.body.addEventListener('keyup', handle_keyup)
-        }
-    }
-})
-
 var app = document.getElementById("main-app");
-
-// var audioObj = new Audio('440Hz.mp3');
-// audioObj.volume = 0.2;
 var interpreted = document.querySelector('#interpreted');
 var ditdahs = document.querySelector('#ditdahs');
+var light = document.querySelector('#light');
+
+var keypress_interpreter_inactive = false;
 
 var dit;
 if (localStorage.getItem('dit') === null) {
@@ -47,8 +23,6 @@ var ready_down = true;
 var t0;
 var dur;
 
-var light = document.querySelector('#light');
-
 function toggle_light(colorInput) {
     light.style.backgroundColor = colorInput;
 }
@@ -61,9 +35,9 @@ function handle_mousedown(e) {
             clearTimeout(timeoutID);
         }
         if (audioReady) {
-            start_audio()
+            start_audio();
         }
-        toggle_light('yellow')
+        toggle_light('yellow');
         ready_down = false;
     }
 }
@@ -78,7 +52,7 @@ function handle_mouseup(e) {
         };
         timeoutID = setTimeout(interpret_morse,dit*3);
         if (audioReady) {
-            stop_audio()
+            stop_audio();
         }
         toggle_light('white')
         ready_down = true;
@@ -139,15 +113,3 @@ function add_morse_listeners() {
 }
 
 add_morse_listeners()
-
-
-function interpret_morse() {
-    if (morse_dict[ditdahs.innerHTML] !== undefined) {
-        interpreted.innerHTML = interpreted.innerHTML + morse_dict[ditdahs.innerHTML];
-        ditdahs.innerHTML = '';
-    }
-    if (interpreted.innerHTML.length > 0 && !interpreted.innerHTML.endsWith(' ')) {
-        timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + ' '},dit*4);
-    }
-}
-

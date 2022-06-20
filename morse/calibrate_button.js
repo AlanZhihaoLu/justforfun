@@ -170,7 +170,7 @@ function handle_mousedown_calibrate(e) {
             clearTimeout(timeoutID);
         }
         if (audioReady) {
-            audioObj.play();
+            start_audio();
         }
         ready_down = false;
     }
@@ -186,8 +186,7 @@ function handle_mouseup_calibrate(e) {
         dur_list.push(dur);
         cur_doots[dur_list.length-1].style.opacity = 1;
         if (audioReady) {
-            audioObj.pause();
-            audioObj.currentTime = 0;
+            stop_audio();
         }
         ready_down = true;
     }
@@ -219,7 +218,7 @@ function handle_keydown_calibrate(e) {
             clearTimeout(timeoutID);
         }
         if (audioReady) {
-            audioObj.play();
+            start_audio();
         }
         ready_down = false;
     }
@@ -234,8 +233,7 @@ function handle_keyup_calibrate(e) {
         dur_list.push(dur);
         cur_doots[dur_list.length-1].style.opacity = 1;
         if (audioReady) {
-            audioObj.pause();
-            audioObj.currentTime = 0;
+            stop_audio();
         }
         ready_down = true;
     }
