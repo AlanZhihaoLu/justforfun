@@ -12,10 +12,6 @@
         <link rel="stylesheet" href="css/utils.css"> 
     </head>
     <body>
-        <!-- See: `getFullVh()` -->
-        <div style="overflow: hidden; height: 0">
-            <div id="measure-vh" style="position: fixed; height: 100vh"></div>
-        </div>
         <div id="modal" class="modal">
             <div class="help-content modal-content">
                 <span id="close-help" class="close">&times;</span>
@@ -93,6 +89,7 @@
                 <li><a href="transmission-practice.html">transmitter practice</a></li>
             </ul>
         </div>
+        <audio src="440Hz.mp3"></audio>
     </body>
     <script src="morse_dicts.js"></script>
     <script src="cursor_blink.js"></script>
@@ -102,11 +99,8 @@
     <script src="help_button.js"></script>
     <script src="options_button.js"></script>
     <script src="mobile_check.js"></script>
+    <script src="audio.js"></script>
     <script>
-
-        const getFullVh = () => {
-        return document.querySelector('#measure-vh').clientHeight
-        }
 
         var keypress_interpreter_inactive = false;
 
@@ -134,8 +128,8 @@
 
         var app = document.getElementById("main-app");
         
-        var audioObj = new Audio('440Hz.mp3');
-        audioObj.volume = 0.2;
+        // var audioObj = new Audio('440Hz.mp3');
+        // audioObj.volume = 0.2;
         var interpreted = document.querySelector('#interpreted');
         var ditdahs = document.querySelector('#ditdahs');
 
@@ -151,6 +145,7 @@
         ditdahs.innerHTML = '';
         var onMobile = window.mobileAndTabletCheck();
         var audioReady = !onMobile;
+        // var audioReady = true;
         var timeoutID;
 
         var ready_down = true;
@@ -171,7 +166,8 @@
                     clearTimeout(timeoutID);
                 }
                 if (audioReady) {
-                    audioObj.play()
+                    // audioObj.play()
+                    start_audio()
                 }
                 toggle_light('yellow')
                 ready_down = false;
@@ -188,8 +184,9 @@
                 };
                 timeoutID = setTimeout(interpret_morse,dit*3);
                 if (audioReady) {
-                    audioObj.pause()
-                    audioObj.currentTime = 0;
+                    // audioObj.pause()
+                    // audioObj.currentTime = 0;
+                    stop_audio()
                 }
                 toggle_light('white')
                 ready_down = true;
@@ -214,7 +211,8 @@
                     clearTimeout(timeoutID);
                 }
                 if (audioReady) {
-                    audioObj.play()
+                    // audioObj.play()
+                    start_audio()
                 }
                 toggle_light('yellow')
                 ready_down = false;
@@ -231,8 +229,9 @@
                 };
                 timeoutID = setTimeout(interpret_morse,dit*3);
                 if (audioReady) {
-                    audioObj.pause()
-                    audioObj.currentTime = 0;
+                    // audioObj.pause()
+                    // audioObj.currentTime = 0;
+                    stop_audio()
                 }
                 toggle_light('white')
                 ready_down = true;

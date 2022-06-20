@@ -93,6 +93,7 @@
                 <li><a href="transmission-practice.html">transmitter practice</a></li>
             </ul>
         </div>
+        <audio src="440Hz.mp3"></audio>
     </body>
     <script src="morse_dicts.js"></script>
     <script src="absorb_event.js"></script>
@@ -101,9 +102,10 @@
     <script src="options_button.js"></script>
     <script src="mobile_check.js"></script>
     <script src="text-to-morse.js"></script>
+    <script src="audio.js"></script>
     <script>
-        var audioObj = new Audio('440Hz.mp3');
-        audioObj.volume = 0.2;
+        // var audioObj = new Audio('440Hz.mp3');
+        // audioObj.volume = 0.2;
         var onMobile = window.mobileAndTabletCheck();
         var audioReady = !onMobile;
 

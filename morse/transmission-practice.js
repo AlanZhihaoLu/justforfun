@@ -39,8 +39,8 @@ target_words.value = 'hello world';
 var feedback = document.getElementById("give-feedback");
 var feedback_content = document.getElementById("give-feedback-content");
 
-var audioObj = new Audio('440Hz.mp3');
-audioObj.volume = 0.2;
+// var audioObj = new Audio('440Hz.mp3');
+// audioObj.volume = 0.2;
 var interpreted = document.querySelector('#interpreted');
 var ditdahs = document.querySelector('#ditdahs');
 
@@ -76,7 +76,7 @@ function handle_mousedown(e) {
             clearTimeout(timeoutID);
         }
         if (audioReady) {
-            audioObj.play()
+            start_audio()
         }
         toggle_light('yellow')
         ready_down = false;
@@ -93,8 +93,7 @@ function handle_mouseup(e) {
         };
         timeoutID = setTimeout(interpret_morse,dit*3);
         if (audioReady) {
-            audioObj.pause()
-            audioObj.currentTime = 0;
+            stop_audio()
         }
         toggle_light('white')
         ready_down = true;
@@ -119,7 +118,7 @@ function handle_keydown(e) {
             clearTimeout(timeoutID);
         }
         if (audioReady) {
-            audioObj.play()
+            start_audio()
         }
         toggle_light('yellow')
         ready_down = false;
@@ -136,8 +135,7 @@ function handle_keyup(e) {
         };
         timeoutID = setTimeout(interpret_morse,dit*3);
         if (audioReady) {
-            audioObj.pause()
-            audioObj.currentTime = 0;
+            stop_audio()
         }
         toggle_light('white')
         ready_down = true;

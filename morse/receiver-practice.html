@@ -12,6 +12,53 @@
         <link rel="stylesheet" href="css/utils.css"> 
     </head>
     <body>
+        <div id="modal" class="modal">
+            <div class="help-content modal-content">
+                <span id="close-help" class="close">&times;</span>
+                <p><b>What is this?</b></p>
+                <p>
+                    It translates morse code to letters. 
+                    Just click (if using mouse) or tap (if on mobile) out morse 
+                    code using the 'transmit' button, 
+                    and what you tap out will be written out in the space below.
+                    Alternatively, if you have a keyboard, you can use the spacebar.
+                    By default a "dit" is considered 150ms. You can change this default
+                    by using the "calibrate" button.
+                </p>
+                <img src="International_Morse_Code.svg" alt="Morse Code Chart" style="display:block;margin-left:auto;margin-right:auto;width:50vw;">
+            </div>  
+            <div class="options-content modal-content">
+                <span id="close-options" class="close">&times;</span>
+                <p><b>Options</b></p>
+                <div id="guide-on-container" style="display:inline-block;">
+                    <label for="guide-on">Dit Guide</label>
+                    <input type="checkbox" id="guide-on" name="guide-on" checked>
+                </div>
+                <div class="volume-container">
+                    Audio Feedback Volume: <span id="volume-level">50</span>
+                    <br>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="volume-slider" onchange="change_volume()">
+                </div>
+            </div>  
+            <div class="cal-content modal-content">
+                <span id="close-cal" class="close">&times;</span>
+                <p><b>Calibrate</b></p>
+                <p>Calibrate timing. By default a "dit" is considered 150ms.</p>
+                <p><i>The current dit duration is set to <input type='number' value='150' class="dit-ind" style="font-style: italic;" max="999" min="10" onchange="handle_manual_cal()">ms.</i></p>
+                <p>For manual calibration, specify your preferred dit duration in the above box.</p>
+                <p>For automatic calibration, press the start button and transmit the letters that appear below, and the program will automatically determine the best dit duration for you.</p>
+                <button class='start-cal' style="font-size:2.5rem;">start</button><button id="cal-transmit" class="unselectable" style="margin-left:0.5rem;font-size:2.5rem;">transmit</button>
+                <div class="cal-letter-container">
+                </div>
+            </div>  
+        </div>
+        <div class="unselectable" style="display:flex;justify-content:flex-end;">
+            <button class="cal-button">calibrate</button>
+            <div style="margin-left:auto;">
+                <button class="options-button">options</button>
+                <button class="help-button">help</button>
+            </div>
+        </div>
         <div class="center-container page-title">
             Receiver Practice
         </div>

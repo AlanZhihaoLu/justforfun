@@ -105,13 +105,12 @@ function transmit(timings) {
             timing = -1*timing;
             active_signal(false);
             if (audioReady) {
-                audioObj.pause()
-                audioObj.currentTime = 0;
+                stop_audio()
             }
         } else {
             active_signal(true);
             if (audioReady) {
-                audioObj.play();
+                start_audio()
             }
         }
         translated_doots.innerHTML += morse_output.array_form.pop();
