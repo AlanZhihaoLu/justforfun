@@ -2,11 +2,6 @@ var options_button = document.body.querySelector('.options-button');
 var options_content = document.body.querySelector('.options-content');
 var close_options = document.querySelector("#close-options");
 
-// function change_volume() {
-//     volume_level.innerHTML = volume_slider.value;
-//     audioObj.volume = (volume_slider.value/100) * 0.4
-// }
-
 options_button.addEventListener('mousedown', function (e) {
     // e.stopPropagation();
     modal.style.display = "block";

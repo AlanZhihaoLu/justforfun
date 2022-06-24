@@ -1,3 +1,15 @@
+var onMobile = window.mobileAndTabletCheck();
+var audioReady = !onMobile;
+
+var dit;
+if (localStorage.getItem('dit') === null) {
+    localStorage.setItem('dit', dit);
+    dit = 150;
+} else {
+    dit = parseInt(localStorage.getItem('dit'));
+    dit_ind.value = dit;
+}
+
 var translate_button = document.getElementById("translate-button");
 var current_status = document.getElementById("current-status");
 var inputarea = document.querySelector("input.inputarea");

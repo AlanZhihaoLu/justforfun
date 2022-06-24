@@ -53,12 +53,23 @@ var volume_slider = document.querySelector('#volume-slider')
 var volume_level = document.querySelector('#volume-level')
 
 var gain_max = 0.4;
-var curr_gain = (volume_slider.value/100) * gain_max;
+
+var curr_gain;
+
+if (localStorage.getItem('ditdahs_volume') === null) {
+    volume_slider.value = volume_level.innerHTML = 50
+    localStorage.setItem('ditdahs_volume', 50)
+    curr_gain = (volume_slider.value/100) * gain_max;
+} else {
+    volume_slider.value = volume_level.innerHTML = parseInt(localStorage.getItem('ditdahs_volume'));
+    curr_gain = (volume_slider.value/100) * gain_max;
+}
 
 function change_volume() {
     if (!audio_playing) {
         audioElement.pause();
     }
     volume_level.innerHTML = volume_slider.value;
+    localStorage.setItem('ditdahs_volume', volume_slider.value);
     gainNode.gain.value = curr_gain = (volume_slider.value/100) * gain_max;
 }

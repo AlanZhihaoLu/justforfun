@@ -102,15 +102,5 @@
     <script src="mobile_check.js"></script>
     <script src="audio.js"></script>
     <script src="morse_to_text.js"></script>
-    <script>
-        function interpret_morse() {
-            if (morse_dict[ditdahs.innerHTML] !== undefined) {
-                interpreted.innerHTML = interpreted.innerHTML + morse_dict[ditdahs.innerHTML];
-                ditdahs.innerHTML = '';
-            }
-            if (interpreted.innerHTML.length > 0 && !interpreted.innerHTML.endsWith(' ')) {
-                timeoutID = setTimeout(function(){interpreted.innerHTML = interpreted.innerHTML + ' '},dit*4);
-            }
-        }
-    </script>
+    <script src="index.js"></script>
 </html>

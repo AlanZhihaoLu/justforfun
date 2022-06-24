@@ -97,47 +97,11 @@
     </body>
     <script src="morse_dicts.js"></script>
     <script src="absorb_event.js"></script>
+    <script src="modal.js"></script>
     <script src="calibrate_button.js"></script>
     <script src="help_button.js"></script>
     <script src="options_button.js"></script>
     <script src="mobile_check.js"></script>
     <script src="text-to-morse.js"></script>
     <script src="audio.js"></script>
-    <script>
-        // var audioObj = new Audio('440Hz.mp3');
-        // audioObj.volume = 0.2;
-        var onMobile = window.mobileAndTabletCheck();
-        var audioReady = !onMobile;
-
-        var modal = document.getElementById("modal");
-        modal.addEventListener('click', function (e) {
-            e.preventDefault();
-            if (e.target === modal) {
-                help_content.style.display = "none";
-                options_content.style.display = "none";
-                cal_content.style.display = "none";
-                modal.style.display = "none";
-                // Reset automatic calibration
-                cal_letter_container.innerHTML = '';
-                start_cal.innerHTML = 'start';
-                if (calibrate_on) {
-                    calibrate_on = false;
-                    remove_cal_listeners();
-                }
-                if (keypress_interpreter_inactive) {
-                    document.body.addEventListener('keydown', handle_keydown)
-                    document.body.addEventListener('keyup', handle_keyup)
-                }
-            }
-        })
-
-        var dit;
-        if (localStorage.getItem('dit') === null) {
-            localStorage.setItem('dit', dit);
-            dit = 150;
-        } else {
-            dit = parseInt(localStorage.getItem('dit'));
-            dit_ind.value = dit;
-        }
-    </script>
 </html>

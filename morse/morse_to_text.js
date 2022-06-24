@@ -7,8 +7,8 @@ var keypress_interpreter_inactive = false;
 
 var dit;
 if (localStorage.getItem('dit') === null) {
-    localStorage.setItem('dit', dit);
     dit = 150;
+    localStorage.setItem('dit', dit);
 } else {
     dit = parseInt(localStorage.getItem('dit'));
     dit_ind.value = dit;
@@ -72,6 +72,7 @@ function handle_keydown(e) {
         timeoutID = setTimeout(interpret_morse,dit*3);
     }
     if (e.keyCode === 32 && ready_down) {
+        e.preventDefault();
         t0 = e.timeStamp;
         if (timeoutID !== undefined) {
             clearTimeout(timeoutID);
@@ -110,6 +111,18 @@ function add_morse_listeners() {
 
     app.addEventListener('touchstart', handle_mousedown);
     app.addEventListener('touchend', handle_mouseup);
+}
+
+// Function for transmission-practice.html
+function remove_morse_listeners() {
+    app.removeEventListener('mousedown', handle_mousedown)
+    app.removeEventListener('mouseup', handle_mouseup)
+
+    document.body.removeEventListener('keydown', handle_keydown)
+    document.body.removeEventListener('keyup', handle_keyup)
+
+    app.removeEventListener('touchstart', handle_mousedown);
+    app.removeEventListener('touchend', handle_mouseup);
 }
 
 add_morse_listeners()
