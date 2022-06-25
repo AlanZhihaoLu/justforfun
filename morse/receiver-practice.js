@@ -1,3 +1,25 @@
+var words_list = ['hello world',
+'it is me', 
+'this is yet', 
+'another loop', 
+'i do not', 
+'know where', 
+'to find',
+'sample',
+'practice',
+'phrases',
+'if you could',
+'point me',
+'to some',
+'i would',
+'appreciate it',
+'but for now',
+'lets go again'
+];
+
+var input_sentence = words_list[0];
+words_list.push(words_list.shift());
+
 var keypress_interpreter_inactive = false;
 
 var onMobile = window.mobileAndTabletCheck();
@@ -10,8 +32,6 @@ var inputarea = document.querySelector("input.inputarea");
 var trial_started = false;
 var playing = false;
 var timeoutID;
-
-var input_sentence = "hello world"
 
 var dit;
 if (localStorage.getItem('dit') === null) {
@@ -33,6 +53,9 @@ initiate_button.addEventListener('click', function(e) {
         current_status.innerText = 'Waiting...';
         active_signal(false);
         clearTimeout(timeoutID);
+        if (audioReady) {
+            stop_audio()
+        }
     } else {
         initiate_button.className = 'stop-button';
         initiate_button.innerText = 'stop';
@@ -215,4 +238,6 @@ function reset_for_next_trial() {
     trial_started = false;
     all_doots.innerText = '';
     translated_doots.innerHTML = '';
+    input_sentence = words_list[0];
+    words_list.push(words_list.shift());
 }
