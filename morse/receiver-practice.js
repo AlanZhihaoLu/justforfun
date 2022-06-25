@@ -3,13 +3,22 @@ var keypress_interpreter_inactive = false;
 var onMobile = window.mobileAndTabletCheck();
 var audioReady = !onMobile;
 
+var initiate_button = document.getElementById("initiate_button");
+var current_status = document.getElementById("current-status");
+var inputarea = document.querySelector("input.inputarea");
+
+var trial_started = false;
+var playing = false;
+var timeoutID;
+
+var input_sentence = "hello world"
+
 var dit;
 if (localStorage.getItem('dit') === null) {
     localStorage.setItem('dit', dit);
     dit = 150;
 } else {
     dit = parseInt(localStorage.getItem('dit'));
-    dit_ind.value = dit;
 }
 
 doot_dict = {
@@ -17,29 +26,18 @@ doot_dict = {
     '-': 3
 }
 
-var translate_button = document.getElementById("translate-button");
-var current_status = document.getElementById("current-status");
-var inputarea = document.querySelector("input.inputarea");
-
-var playing = false;
-var timeoutID;
-
-var input_sentence;
-var morse_output;
-
-// Guide Elements
-var all_doots = document.getElementById("all-doots");
-var translated_doots = document.getElementById("translated-doots");
-
-translate_button.addEventListener('click', function(e) {
+initiate_button.addEventListener('click', function(e) {
     if (playing) {
-        translate_button.innerText = 'translate it!';
+        initiate_button.className = 'start-button';
+        initiate_button.innerText = 'start';
         current_status.innerText = 'Waiting...';
+        active_signal(false);
         clearTimeout(timeoutID);
     } else {
-        translate_button.innerText = 'translating...';
-        current_status.innerText = 'Transmitting...';
-        input_sentence = inputarea.value.toLowerCase();
+        initiate_button.className = 'stop-button';
+        initiate_button.innerText = 'stop';
+        current_status.innerText = 'Receiving...';
+        trial_started = true;
         translated_doots.innerHTML = '';
         morse_output = convert2morse(input_sentence);
         morse_output.signal = convert2signal(input_sentence);
@@ -49,6 +47,11 @@ translate_button.addEventListener('click', function(e) {
     playing = !playing;
 });
 
+// Guide Elements
+var all_doots = document.getElementById("all-doots");
+var translated_doots = document.getElementById("translated-doots");
+
+// Conversion Functions
 function convert2morse(input_sentence) {
     var output = {};
     output.string_form = '';
@@ -122,7 +125,7 @@ function transmit(timings) {
         translated_doots.innerHTML += morse_output.array_form.pop();
         timeoutID = setTimeout(()=>transmit(timings),timing*dit)
     } else {
-        translate_button.innerText = 'translate it!';
+        initiate_button.innerText = 'start';
         current_status.innerText = 'Waiting...';
         playing = false;
         clearTimeout(timeoutID);
@@ -144,6 +147,7 @@ function handle_keydown() {
 function handle_keyup() {
 }
 
+// Guide functions
 var guide_on_container = document.getElementById('guide-on-container');
 var guide_on = document.getElementById('guide-on');
 
@@ -175,4 +179,40 @@ function toggle_doot_guide(turnOn) {
     } else {
         doot_guide_container.style.display = "none";
     }
+}
+
+// Feedback Modal 
+inputarea.addEventListener('keyup', function(e) {
+    if (trial_started) {
+        if (inputarea.value.toLowerCase() === input_sentence) {
+            if (audioReady) {
+                stop_audio()
+            }
+            active_signal(false);
+            clearTimeout(timeoutID);
+            give_feedback();
+            setTimeout(reset_for_next_trial, 800);
+        }
+    }
+});
+
+var feedback = document.getElementById("give-feedback");
+var feedback_content = document.getElementById("give-feedback-content");
+
+function give_feedback() {
+    feedback.style.display = 'block';
+    feedback_content.style.display = 'block';
+}
+
+// Reset
+function reset_for_next_trial() {
+    initiate_button.className = 'start-button';
+    initiate_button.innerText = 'start';
+    current_status.innerText = 'Waiting...';
+    inputarea.value = '';
+    feedback.style.display = 'none';
+    feedback_content.style.display = 'none';
+    trial_started = false;
+    all_doots.innerText = '';
+    translated_doots.innerHTML = '';
 }

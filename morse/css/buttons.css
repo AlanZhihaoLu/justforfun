@@ -46,11 +46,11 @@ button:hover {
 
 /* Receiver Buttons */
 button.stop-button {
-    border: 0.5vw solid red;
-    border-radius: 1vw;
+    border: 0.3rem solid red;
+    border-radius: 1rem;
     background-color: red;
     color: whitesmoke;
-    padding: 0.5vw;
+    padding: 0.5rem;
     cursor: pointer;
 }
 

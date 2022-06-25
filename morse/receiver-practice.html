@@ -30,7 +30,7 @@
             <div class="options-content modal-content">
                 <span id="close-options" class="close">&times;</span>
                 <p><b>Options</b></p>
-                <div id="guide-on-container" style="display:inline-block;">
+                <div id="guide-on-container">
                     <label for="guide-on">Dit Guide</label>
                     <input type="checkbox" id="guide-on" name="guide-on" checked>
                 </div>
@@ -69,7 +69,13 @@
                 </div>
             </div>
         </div>
-        <div class="center-container">
+        <div id="doot-guide-container" class="center-container" style="font-size:4rem;align-items:center;display:block;">
+            <div style="display:flex;justify-content:left;">
+                <span id="all-doots" style="opacity:0.25;"></span>
+                <span id="translated-doots" style="position:absolute;opacity:0.75;"></span>
+            </div>
+        </div>
+        <div class="center-container" style="margin-top:0.5rem;">
             <input class="inputarea" type="text" style="padding-left:1rem;padding-right:1rem;width:80%;font-size:3rem;border:0.2rem solid black;" placeholder="translation...">
         </div>
         <div class="center-container" style="margin:4em;">
@@ -94,7 +100,15 @@
                 <li><a href="transmission-practice.html">transmitter practice</a></li>
             </ul>
         </div>
+        <audio src="440Hz.mp3"></audio>
     </body>
     <script src="morse_dicts.js"></script>
-    <script src="receive.js"></script>
+    <script src="mobile_check.js"></script>
+    <script src="absorb_event.js"></script>
+    <script src="modal.js"></script>
+    <script src="calibrate_button.js"></script>
+    <script src="help_button.js"></script>
+    <script src="receiver-practice.js"></script>
+    <script src="options_button.js"></script>
+    <script src="audio.js"></script>
 </html>
