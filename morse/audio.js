@@ -52,7 +52,7 @@ track.connect(gainNode).connect(audioContext.destination);
 var volume_slider = document.querySelector('#volume-slider')
 var volume_level = document.querySelector('#volume-level')
 
-var gain_max = 0.4;
+var gain_max = 0.5;
 
 var curr_gain;
 
