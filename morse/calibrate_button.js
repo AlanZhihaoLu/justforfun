@@ -213,6 +213,7 @@ function handle_mouseup_calibrate(e) {
 // For keydown
 function handle_keydown_calibrate(e) {
     if (e.keyCode === 32 && ready_down) {
+        e.preventDefault();
         t0 = e.timeStamp;
         if (timeoutID !== undefined) {
             clearTimeout(timeoutID);
