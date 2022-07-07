@@ -2,7 +2,7 @@ var options_button = document.body.querySelector('.options-button');
 var options_content = document.body.querySelector('.options-content');
 var close_options = document.querySelector("#close-options");
 
-options_button.addEventListener('mousedown', function (e) {
+options_button.addEventListener('click', function (e) {
     // e.stopPropagation();
     modal.style.display = "block";
     options_content.style.display = "block";
@@ -14,7 +14,7 @@ options_button.addEventListener('touchstart', function (e) {
     options_content.style.display = "block";
 }, true)
 
-close_options.addEventListener('mouseup', function(e) {
+close_options.addEventListener('click', function(e) {
     // e.stopPropagation();
     options_content.style.display="none";
     modal.style.display="none";

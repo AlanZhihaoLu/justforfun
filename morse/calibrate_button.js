@@ -21,7 +21,7 @@ var calibrate_on = false;
 
 // Removes keypress event listeners to prevent default action, displays modal (see handle_cal_button)
 // Mouse click
-cal_button.addEventListener('mousedown', handle_cal_button, true)
+cal_button.addEventListener('click', handle_cal_button, true)
 // Mobile tap
 cal_button.addEventListener('touchstart', handle_cal_button, true)
 // Stop propagation for mouseup and touchend
@@ -46,7 +46,7 @@ absorbEvents(close_cal, ['mousedown', 'touchstart']);
 // Removes modal display, removes listeners if in calibration mode, 
 // re-adds keypress default event listeners (see handle_close_cal)
 // Mouse click
-close_cal.addEventListener('mouseup', handle_close_cal, true)
+close_cal.addEventListener('click', handle_close_cal, true)
 // Mobile tap
 close_cal.addEventListener('touchend', handle_close_cal, true)
 
