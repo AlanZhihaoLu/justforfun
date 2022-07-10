@@ -131,9 +131,9 @@ function transmit(timings) {
 
 function active_signal(turnOn) {
     if (turnOn) {
-        light.style.backgroundColor = 'yellow';
+        light.style.backgroundColor = on_color.value;
     } else {
-        light.style.backgroundColor = 'white';
+        light.style.backgroundColor = off_color.value;
     }
 }
 

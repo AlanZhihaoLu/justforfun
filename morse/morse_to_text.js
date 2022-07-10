@@ -1,7 +1,6 @@
 var app = document.getElementById("main-app");
 var interpreted = document.querySelector('#interpreted');
 var ditdahs = document.querySelector('#ditdahs');
-var light = document.querySelector('#light');
 
 var keypress_interpreter_inactive = false;
 
@@ -23,10 +22,6 @@ var ready_down = true;
 var t0;
 var dur;
 
-function toggle_light(colorInput) {
-    light.style.backgroundColor = colorInput;
-}
-
 function handle_mousedown(e) {
     e.preventDefault();
     if (ready_down) {
@@ -37,7 +32,7 @@ function handle_mousedown(e) {
         if (audioReady) {
             start_audio();
         }
-        toggle_light('yellow');
+        toggle_light(on_color.value);
         ready_down = false;
     }
 }
@@ -54,7 +49,7 @@ function handle_mouseup(e) {
         if (audioReady) {
             stop_audio();
         }
-        toggle_light('white')
+        toggle_light(off_color.value)
         ready_down = true;
     }
 }
@@ -80,7 +75,7 @@ function handle_keydown(e) {
         if (audioReady) {
             start_audio()
         }
-        toggle_light('yellow')
+        toggle_light(on_color.value)
         ready_down = false;
     }
 }
@@ -97,7 +92,7 @@ function handle_keyup(e) {
         if (audioReady) {
             stop_audio()
         }
-        toggle_light('white')
+        toggle_light(off_color.value)
         ready_down = true;
     }
 }

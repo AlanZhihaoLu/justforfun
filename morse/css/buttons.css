@@ -62,3 +62,19 @@ button.start-button:hover {
     color: whitesmoke;
     background-color: black;
 }
+
+button#options-reset {
+    transition-duration: 0.4s;
+    border: 0.1rem solid black;
+    border-radius: 0.3rem;
+    background-color: whitesmoke;
+    color: black;
+    padding: 0.3rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+button#options-reset:hover {
+    background-color: black;
+    color: whitesmoke;
+}

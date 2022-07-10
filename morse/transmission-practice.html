@@ -42,11 +42,23 @@
             </div>  
             <div class="options-content modal-content">
                 <span id="close-options" class="close">&times;</span>
-                <p><b>Options</b></p>
+                <p><b>Options &nbsp; <button id="options-reset" onclick="options_reset()">reset</button></b></p>
                 <div id="guide-on-container" style="display:inline-block;">
                     <label for="guide-on">Dit Guide</label>
                     <input type="checkbox" id="guide-on" name="guide-on" checked>
                 </div>
+                <div>
+                    Visual Feedback Colors:
+                    <div>
+                        <input type="color" id="on-color-picker" name="on-color-picker" value="#FFFF00" onchange="change_on_color()">
+                        <label for="on-color-picker">On Signal Color</label>
+                    </div>
+                    <div>
+                        <input type="color" id="off-color-picker" name="off-color-picker" value="#FFFFFF" onchange="change_off_color()">
+                        <label for="off-color-picker">Off Signal Color</label>
+                    </div>
+                </div>
+                <br>
                 <div class="volume-container">
                     Audio Feedback Volume: <span id="volume-level">50</span>
                     <br>
@@ -130,7 +142,9 @@
     <script src="help_button.js"></script>
     <script src="options_button.js"></script>
     <script src="mobile_check.js"></script>
-    <script src="audio.js"></script>
+    <script src="lightbulb.js"></script>
     <script src="morse_to_text.js"></script>
     <script src="transmission-practice.js"></script>
+    <script src="audio.js"></script>
+    <script src="options_reset.js"></script>
 </html>

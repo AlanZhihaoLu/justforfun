@@ -1,7 +1,7 @@
 var modal = document.getElementById("modal");
 
 modal.addEventListener('click', function (e) {
-    e.preventDefault();
+    // e.preventDefault();
     if (e.target === modal) {
         help_content.style.display = "none";
         options_content.style.display = "none";

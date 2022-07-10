@@ -1,3 +1,7 @@
+if (onMobile) {
+    document.querySelector('.volume-container').style.display = 'none';
+}
+
 // for legacy browsers
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 
