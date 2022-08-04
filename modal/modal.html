@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            modal testing
+        </title>
+        <link rel="stylesheet" href="../morse/css/modal.css">
+    </head>
+    <body>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span id="close-modal" class="close">&times;</span>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. At voluptate, cum possimus eaque perspiciatis facilis sequi voluptas similique blanditiis excepturi non nulla quidem voluptatem repellendus accusamus delectus vero, magnam repudiandae.
+                </p>
+                <div>
+                    <input type="color" id="on-color-picker" name="on-color-picker" value="#FFFF00">
+                    <input type="color" id="off-color-picker" name="off-color-picker" value="#FFFFFF">
+                </div>
+            </div>
+        </div>
+        <button class="modal-button">open modal</button>
+    </body>
+    <script>
+        var modal_button = document.body.querySelector('.modal-button');
+        var close_modal = document.querySelector("#close-modal");
+        var modal = document.getElementById("modal");
+        var modal_content = document.querySelector('.modal-content');
+
+        modal.addEventListener('click', function (e) {
+            // e.preventDefault();
+            if (e.target === modal) {
+                modal_content.style.display = "none";
+                modal.style.display="none";
+            }
+        })
+
+        modal_button.addEventListener('mousedown', function (e) {
+            // e.stopPropagation();
+            modal.style.display = "block";
+            modal_content.style.display = "block";
+        }, true)
+
+        modal_button.addEventListener('touchstart', function (e) {
+            // e.stopPropagation();
+            modal.style.display = "block";
+            modal_content.style.display = "block";
+        }, true)
+
+        close_modal.addEventListener('mouseup', function(e) {
+            // e.stopPropagation();
+            modal_content.style.display="none";
+            modal.style.display="none";
+        }, true)
+
+        close_modal.addEventListener('touchend', function(e) {
+            // e.stopPropagation();
+            modal_content.style.display="none";
+            modal.style.display="none";
+        }, true)
+
+    </script>
+</html>

@@ -1,0 +1,22 @@
+.elem-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button#start-button {
+    height: 7rem;
+    transition-duration: 0.4s;
+    border: 0.3rem solid black;
+    border-radius: 1rem;
+    background-color: whitesmoke;
+    color: black;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-size: 3.5rem;
+}
+
+button#start-button:hover {
+    background-color: black;
+    color: whitesmoke;
+}
