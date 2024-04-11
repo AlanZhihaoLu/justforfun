@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Yet Untitled
+        </title>
+    </head>
+    <body>
+        <div class="center-container page-title">
+            <a href="yetuntitled.html">Yet Untitled</a>
+        </div>
+    </body>
+    <script>
+        var page_title = document.querySelector("title");
+        if (localStorage.getItem('b') === '1') {
+            page_title.innerText = 'Echoes';
+        };
+        localStorage.setItem('a', '1');
+    </script>
+</html>
