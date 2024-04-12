@@ -4,9 +4,11 @@
         <title>
             Yet Untitled
         </title>
-        <link rel="stylesheet" href="main.css"> 
+        <link rel="stylesheet" href="css/main.css"> 
     </head>
     <body>
+        <a href="titled.html" style="position:absolute;top:0.5rem;">Titled</a>
+        <p style="position:absolute;top:0.8rem;">Yet Untitled</p>
         <div class="center-container page-title">
             <h2>Yet Untitled</h2>
         </div>
@@ -21,20 +23,16 @@
                 <a id="nav-about" style="display:none;" href="./about.html">About</a>
             </div>
         </div>
-
-        <br>
-    
-        <a href="titled.html">Titled</a>
     </body>
     <script>
         var page_title = document.querySelector("title");
         if (localStorage.getItem('a') === '1') {
-            page_title.innerText = 'Interference';
+            page_title.innerText = 'Echoes';
         };
         localStorage.setItem('b', '1');
     </script>
-    <script src="utils.js"></script>
-    <script src="random_elements.js"></script>
-    <script src="main.js"></script>
-    <script src="perceive.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/random_elements.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/perceive.js"></script>
 </html>

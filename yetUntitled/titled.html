@@ -2,18 +2,21 @@
 <html>
     <head>
         <title>
-            Yet Untitled
+            Titled
         </title>
+        <link rel="stylesheet" href="css/main.css"> 
     </head>
     <body>
+        <p style="position:absolute;top:-0.5rem;">Titled</p>
+        <a href="yetuntitled.html" style="position:absolute;top:1.8rem;">Yet Untitled</a>
         <div class="center-container page-title">
-            <a href="yetuntitled.html">Yet Untitled</a>
+            <h2>Titled</h2>
         </div>
     </body>
     <script>
         var page_title = document.querySelector("title");
         if (localStorage.getItem('b') === '1') {
-            page_title.innerText = 'Echoes';
+            page_title.innerText = 'Resonance';
         };
         localStorage.setItem('a', '1');
     </script>

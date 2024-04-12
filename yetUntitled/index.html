@@ -4,15 +4,12 @@
         <title>
             Unborn
         </title>
+        <link rel="stylesheet" href="css/main.css"> 
     </head>
     <body>
-        <div id="main-container">
-            <div class="center-container page-title">
-                <a href="titled.html">Titled</a>
-            </div>
-            <div class="center-container page-title">
-                <a href="yetuntitled.html">Yet Untitled</a>
-            </div>
+        <div id="main-container" class="page-title" style="display:flex;justify-content:space-around;align-items:center;">
+            <h2><a href="titled.html">Titled</a></h2>
+            <h2><a href="yetuntitled.html">Yet Untitled</a></h2>
         </div>
     </body>
     <script>
@@ -25,5 +22,5 @@
         localStorage.setItem('a', '0');
         localStorage.setItem('b', '0');
     </script>
-    <script src="utils.js"></script>
+    <script src="js/utils.js"></script>
 </html>
