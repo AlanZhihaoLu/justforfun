@@ -9,3 +9,15 @@ body {
     display: flex;
     justify-content: center;
 }
+
+.individual-displays {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.img-and-caption {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
