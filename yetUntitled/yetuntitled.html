@@ -4,13 +4,27 @@
         <title>
             Yet Untitled
         </title>
+        <link rel="stylesheet" href="main.css"> 
     </head>
     <body>
         <div class="center-container page-title">
-            <a href="titled.html">Titled</a>
+            <h2>Yet Untitled</h2>
         </div>
-        <canvas id="main-canvas" width="800" height="600" style="border:1px solid black;"></canvas>
-        <a id="save-canvas"></a>
+        <div class="center-container">
+            <canvas id="main-canvas" width="800" height="600" style="border:1px solid black;"></canvas>
+        </div>
+        <div class="center-container" style="margin:1rem;">
+            <div style="display:inline;">
+                <input type="text" id="perceive" name="perceive">
+                <a id="place-holder" style="opacity:0;">Save</a>
+                <a id="save-canvas" style="display:none;opacity:0;" href="">Save</a>
+                <a id="nav-about" style="display:none;" href="./about.html">About</a>
+            </div>
+        </div>
+
+        <br>
+    
+        <a href="titled.html">Titled</a>
     </body>
     <script>
         var page_title = document.querySelector("title");
@@ -22,5 +36,5 @@
     <script src="utils.js"></script>
     <script src="random_elements.js"></script>
     <script src="main.js"></script>
-    <!-- <script src="perceive.js"></script> -->
+    <script src="perceive.js"></script>
 </html>

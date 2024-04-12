@@ -1,0 +1,11 @@
+/* main.css: CSS for main elements */
+
+/* Styling */
+body {
+    margin:0.5rem;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+}
