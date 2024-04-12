@@ -1,30 +1,43 @@
-function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
+function getRandomColor(colorSet=[]) {
+    if (colorSet.length === 0) {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    } else {
+        var randomIndex = Math.floor(Math.random() * colorSet.length);
+        return colorSet[randomIndex];
     }
-    return color;
 };
+
+function generateRandomColorsArray(size, colorSet=[]) {
+    var colorsArray = [];
+    for (var i = 0; i < size; i++) {
+        colorsArray.push(getRandomColor(colorSet));
+    }
+    return colorsArray;
+}
 
 function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-function getRandomArc(img_x,img_y) {
-    var radius = Math.random() * (img_y - 10) + 10; 
-    var startAngle = Math.random() * Math.PI * 2; 
-    var endAngle = startAngle + Math.random() * Math.PI; 
-    var coord_x = getRandomNumber(0, img_x);
-    var coord_y = getRandomNumber(0, img_y);
-    return {
-        'rad': radius,
-        'stAng': startAngle,
-        'endAng': endAngle,
-        'x': coord_x,
-        'y': coord_y
-    };
-};
+// function getRandomArc(img_x,img_y) {
+//     var radius = Math.random() * (img_y - 10) + 10; 
+//     var startAngle = Math.random() * Math.PI * 2; 
+//     var endAngle = startAngle + Math.random() * Math.PI; 
+//     var coord_x = getRandomNumber(0, img_x);
+//     var coord_y = getRandomNumber(0, img_y);
+//     return {
+//         'rad': radius,
+//         'stAng': startAngle,
+//         'endAng': endAngle,
+//         'x': coord_x,
+//         'y': coord_y
+//     };
+// };
 
 // // Function to draw an arc connecting two points
 // function drawArcBetweenPoints(ctx, xy_coords1, xy_coords2, radius) {

@@ -9,8 +9,8 @@
         <div class="center-container page-title">
             <a href="titled.html">Titled</a>
         </div>
-        <canvas id="main-canvas" width="800" height="600" style="border:1px solid black;">
-        </canvas>
+        <canvas id="main-canvas" width="800" height="600" style="border:1px solid black;"></canvas>
+        <a id="save-canvas"></a>
     </body>
     <script>
         var page_title = document.querySelector("title");
@@ -21,17 +21,6 @@
     </script>
     <script src="utils.js"></script>
     <script src="random_elements.js"></script>
-    <script>
-        var canvas = document.getElementById("main-canvas");
-        var ctx = canvas.getContext("2d");
-        var imdim = [canvas.width, canvas.height];
-        rand_rect(ctx,imdim);
-        rand_poly(ctx,5,imdim);
-        rand_poly(ctx,3,imdim);
-        rand_poly_n(ctx,8,imdim);
-        rand_arcTo(ctx,imdim);
-        rand_curve_poly_n(ctx,8,imdim);
-        rand_poly_chaos_n(ctx,8,imdim);
-        rand_ellipse(ctx,imdim);
-    </script>
+    <script src="main.js"></script>
+    <!-- <script src="perceive.js"></script> -->
 </html>
