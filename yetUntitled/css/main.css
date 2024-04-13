@@ -3,6 +3,7 @@
 /* Styling */
 body {
     margin:0.5rem;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .center-container {
@@ -20,4 +21,9 @@ body {
     display:flex;
     flex-direction:column;
     align-items:center;
+}
+
+input[type="text"]
+{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
