@@ -38,6 +38,8 @@ function handleSaveArt() {
     save_art.href = dataURL;
     save_art.style.display = 'none';
 
+    localStorage.setItem('interpretation', textInput.value);
+
     var nav_about = document.querySelector('a#nav-about');
     nav_about.style.display = 'inline';
 }

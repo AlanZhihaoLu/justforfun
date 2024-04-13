@@ -2,8 +2,8 @@ var canvas = document.getElementById("main-canvas");
 var ctx = canvas.getContext("2d");
 ctx.fillStyle = getRandomColor();
 ctx.fillRect(0, 0, canvas.width, canvas.height);
-
 var imdim = [canvas.width, canvas.height];
+
 var n_elements = Math.round(Math.random()*29)+1;
 var colorSet = generateRandomColorsArray(n_elements);
 var rand_options = [0,0,1,2,3,3,4,4,5,5,6,6,7,7]
