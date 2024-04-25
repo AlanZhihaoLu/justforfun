@@ -2,8 +2,10 @@
 <html>
     <head>
         <title>
-            
+            Coding Stuff by Alan
         </title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="src/css/main.css">
     </head>
     <body>
         <h1>
@@ -11,14 +13,70 @@
             <br>
             Feel free to browse by following the links below to existing projects.
         </h1>
+        <br>
         <h3>
             Web Apps
         </h3>
-        <a href="./badwebsearch/">Bad Web Search</a>
-        <br>
-        <a href="./morse/">Morse Interpreter</a>
-        <br>
-        <a href="./whoami/">What can people see?</a>
+        <div class="card-deck">
+            <div class="card live-card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="./yetUntitled/" id="card-link">Yet Untitled</a></h5>
+                    <p class="card-text">(Most Recent) Interactive conceptual art project.</p>
+                    <br>
+                    <br>
+                    <p class="card-text creation-date"><small class="text-muted">Created on 4/9/2024.</small></p>
+                    <p class="card-text creation-date"><small class="text-muted">Last updated on 4/17/2024.</small></p>
+                </div>
+            </div>
+            <div class="card live-card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="./badwebsearch/" id="card-link">Bad Web Search</a></h5>
+                    <p class="card-text">Silly web search. Comes with very helpful (and forceful) autofill suggestions.</p>
+                    <br>
+                    <br>
+                    <p class="card-text creation-date"><small class="text-muted">Created on 10/14/2021.</small></p>
+                    <p class="card-text creation-date"><small class="text-muted">Last updated on 10/25/2021.</small></p>
+                </div>
+            </div>
+            <div class="card live-card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="./morse/" id="card-link">Morse Interpreter</a></h5>
+                    <p class="card-text">Learn Morse code. Practice receiving and transmitting Morse code. Programmed in Javascript entirely from scratch.</p>
+                    <br>
+                    <br>
+                    <p class="card-text creation-date"><small class="text-muted">Created on 10/23/2021.</small></p>
+                    <p class="card-text creation-date"><small class="text-muted">Last updated on 7/10/2022.</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="card-deck">
+            <div class="card live-card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="./whoami/" id="card-link">What can people see?</a></h5>
+                    <p class="card-text">Displays what information a webpage receives when you visit.</p>
+                    <br>
+                    <br>
+                    <p class="card-text creation-date"><small class="text-muted">Created on 11/11/2021.</small></p>
+                    <p class="card-text creation-date"><small class="text-muted">Last updated on 11/12/2021.</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text"></p>
+                    <p class="card-text creation-date"><small class="text-muted"></small></p>
+                    <p class="card-text creation-date"><small class="text-muted"></small></p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text"></p>
+                    <p class="card-text creation-date"><small class="text-muted"></small></p>
+                    <p class="card-text creation-date"><small class="text-muted"></small></p>
+                </div>
+            </div>
+        </div>
         <h3>
             Just Code (redirects to Github)
         </h3>
@@ -26,4 +84,5 @@
         <br>
         <a href="https://github.com/AlanZhihaoLu/justforfun/tree/main/debugserver">Debug Server, useful for debugging web apps on mobile</a>
     </body>
+    <script src="src/js/main.js"></script>
 </html>

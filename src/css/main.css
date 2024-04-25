@@ -1,0 +1,31 @@
+/* main.css: CSS for main elements */
+
+/* Styling */
+body {
+    margin:5rem;
+    margin-top:3rem;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.live-card:hover {
+    transform:scale(1.08);
+}
+
+.live-card {
+  transition:.3s;
+  cursor:pointer;
+}
+
+.card {
+    margin-left:1rem;
+    margin-right:1rem;
+}
+
+.card-deck {
+    margin:2rem;
+}
+
+.creation-date {
+    position:absolute;
+    bottom:1rem;
+}
