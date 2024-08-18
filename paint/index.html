@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How are you?</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+        canvas {
+            display: block;
+            background-color: #f0f0f0;
+        }
+        #outputImage {
+            display: block;
+            margin-top: 10px;
+        }
+        #speaker {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 6vh;
+            pointer-events: none;
+            width: 100%;
+            top: 15vh;
+        }
+        #answer {
+            position: absolute;
+            cursor: none;
+            font-size: 5vh;
+            display: none;
+            pointer-events: none;
+            transition: transform 0.15s;
+        }
+        .unselectable {
+            -webkit-user-select: none; /* Safari */        
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none; /* Standard */
+            touch-action: manipulation;
+            -webkit-touch-callout: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="drawingCanvas"></canvas>
+    <div id="speaker" class="unselectable"></div>
+    <img id="outputImage" alt="Canvas output will appear here">
+    <div id="answer"></div>
+    <script src="js/draw.js"></script>
+    <script src="js/speaker.js"></script>
+    <script src="js/answer.js"></script>
+    <script>
+        const outputImage = document.getElementById('outputImage');
+        // const answer = document.getElementById('answer');
+    </script>
+</body>
+</html>
