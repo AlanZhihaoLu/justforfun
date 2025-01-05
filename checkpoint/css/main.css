@@ -1,0 +1,38 @@
+
+body {
+    font-size: x-large;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.button-font {
+    font-size: large;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+input {
+    text-align: center;
+}
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.add-margin {
+    margin: 1rem;
+}
+
+#button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#display-container {
+    height: 75vh;
+}
